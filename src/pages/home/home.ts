@@ -1,90 +1,72 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {CategoryPage} from '../category/category';
-import {VipLoginPage} from '../vip-login/vip-login';
-import {VideoPage} from '../video/video';
-import {VendorRegisterPage} from '../vendor-register/vendor-register';
-import {BankPage} from '../bank/bank';
-import {ContactUsPage} from '../contact-us/contact-us';
-import {MapPage} from '../map/map';
-import {Service} from "../../providers/service";
-import {SharedService} from "../../providers/shared.service";
-import {VendorProfilePage} from "../vendor-profile/vendor-profile";
-import {ProductCartPage} from "../product-cart/product-cart";
-import {ProductSearchPage} from "../product-search/product-search";
+import {CategoryService} from '../../services/category-service';
+import {ItemService} from '../../services/item-service';
+import {CategoriesPage} from "../categories/categories";
+import {CategoryPage} from "../category/category";
+import {ItemPage} from "../item/item";
+import {SearchPage} from "../search/search";
+import {CartPage} from "../cart/cart";
 
+
+/*
+ Generated class for the LoginPage page.
+
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
+ */
 @Component({
-    selector: 'page-home',
-    templateUrl: 'home.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
-    isLogin = false;
-    userData;
-
-    constructor(public navCtrl: NavController,
-                public apiService: Service,
-                public shareService: SharedService) {
-
+export class HomePage {
+  // list slides for slider
+  public slides = [
+    {
+      src: 'assets/img/slide_1.jpg'
+    },
+    {
+      src: 'assets/img/slide_2.jpg'
+    },
+    {
+      src: 'assets/img/slide_3.jpg'
     }
+  ];
 
-    async ngOnInit() {
-        this.userData = await this.apiService.getUserData();
-        if (this.apiService.checkData(this.userData)) {
-            this.isLogin = this.userData.is_vendor;
-        }
-        const carts = await this.apiService.fnGetCart();
-        this.shareService.count_product = carts.length
-    }
+  // list categories
+  public categories: any;
 
-    fnGoCategory() {
-        this.navCtrl.push(CategoryPage);
-    }
+  // list of items
+  public items: any;
 
-    fnGoVIPLogin() {
-        if (this.isLogin) {
-            this.navCtrl.push(VendorProfilePage);
-        } else {
-            this.navCtrl.push(VipLoginPage);
-        }
-    }
+  constructor(public nav: NavController, public categoryService: CategoryService, public itemService: ItemService) {
+    this.categories = categoryService.getAll();
 
-    fnGoVideo() {
-        this.navCtrl.push(VideoPage);
-    }
+    this.items = itemService.getAll();
+  }
 
-    fnGoVendorRegister() {
-        this.navCtrl.push(VendorRegisterPage);
-    }
+  // view categories
+  viewCategories() {
+    this.nav.push(CategoriesPage);
+  }
 
-    fnGoContactLine() {
-        // this.navCtrl.push(CategoryPage);
-        window.open('https://line.me/R/ti/p/%40marukyo', '_system', 'location=yes');
-        return false;
-    }
+  // view a category
+  viewCategory(catId) {
+    this.nav.push(CategoryPage, {id: catId});
+  }
 
-    fnGoBank() {
-        this.navCtrl.push(BankPage);
-    }
+  // view a item
+  viewItem(itemId) {
+    this.nav.push(ItemPage, {id: itemId})
+  }
 
-    fnGoContact() {
-        this.navCtrl.push(ContactUsPage);
-    }
+  // go to search page
+  goToSearch() {
+    this.nav.push(SearchPage);
+  }
 
-    fnGoMap() {
-        this.navCtrl.push(MapPage);
-    }
-
-    fnGoWebSite() {
-        // this.navCtrl.push(WebsitePage);
-        window.open('http://www.marukyo.co.th', '_system', 'location=yes');
-        return false;
-    }
-
-    fnGOToCart() {
-        this.navCtrl.push(ProductCartPage);
-    }
-
-    fnGoToSearch() {
-        this.navCtrl.push(ProductSearchPage);
-    }
+  // view cart
+  goToCart() {
+    this.nav.setRoot(CartPage);
+  }
 }

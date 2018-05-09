@@ -1,76 +1,129 @@
-import {Component, OnInit} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {Service} from "../../providers/service";
-import {SharedService} from "../../providers/shared.service";
-import {DEFAULT} from "../../app/app.constant";
-import {VideoPage} from "../video/video";
-import {CategorySubPage} from "../category-sub/category-sub";
-import {ProductCartPage} from "../product-cart/product-cart";
-import {ProductSearchPage} from "../product-search/product-search";
+import {Component} from '@angular/core';
+import {NavController, ActionSheetController, ModalController} from 'ionic-angular';
 
-/**
- * Generated class for the CategoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+import {ItemService} from '../../services/item-service';
+import {CategoryService} from '../../services/category-service';
+import {ModalFilterPage} from "../modal-filter/modal-filter";
+import {ItemPage} from "../item/item";
+import {CartPage} from "../cart/cart";
+
+/*
+ Generated class for the LoginPage page.
+
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
  */
-
 @Component({
   selector: 'page-category',
-  templateUrl: 'category.html',
+  templateUrl: 'category.html'
 })
-export class CategoryPage implements OnInit {
-  api = DEFAULT.config;
-  list_category;
-  //   [
-  //   {
-  //     title: "รอก",
-  //     id: "1",
-  //     image_icon: "http://www.marukyo.co.th/c/7-large_default/%E0%B8%A3%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%9B%E0%B8%B4%E0%B8%99.jpg",
-  //   },
-  //   {
-  //     title: "สายเอ็น/สายลีด",
-  //     image_icon: "http://www.marukyo.co.th/c/16-large_default/%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%9E%E0%B8%B5%E0%B8%AD%E0%B8%B5-%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B9%84%E0%B8%94%E0%B8%99%E0%B8%B5%E0%B8%A1%E0%B9%88%E0%B8%B2.jpg",
-  //   },
-  // ];
+export class CategoryPage {
+  // list items of this category
+  public items: any;
 
-  lang = 'th';
+  // category info
+  public category: any;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public apiService: Service,
-              public shareService: SharedService,) {
+  // view type
+  public viewType = 'list';
+
+  // sort by
+  public sortBy = 'Best Match';
+
+  constructor(public nav: NavController, public itemService: ItemService, public categoryService: CategoryService,
+              public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController) {
+    // get list items of a category as sample
+    this.items = itemService.getByCategory(1);
+
+    // set category info
+    this.category = categoryService.getItem(1);
   }
 
-  ngOnInit() {
-    this.fnGetCatGroup();
+  // switch to list view
+  viewList() {
+    this.viewType = 'list';
   }
 
-  async fnGetCatGroup() {
-    console.log('get cat')
-    // if (this.shareService.list_category_main !== null) {
-    //   this.list_category = this.shareService.list_category_main;
-    // } else {
-      this.list_category = await this.apiService.get(this.api.category.catMain);
-      // this.shareService.list_category_main = this.list_category;
-    // }
+  // swith to grid view
+  viewGrid() {
+    this.viewType = 'grid';
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoryPage');
+  // get discount percent
+  discountPercent(originPrice, salePrice) {
+    return Math.round((salePrice - originPrice) * 100 / originPrice)
   }
 
-  goToDetail(cate: any) {
-    this.navCtrl.push(CategorySubPage, {
-      id: cate.id,
-      name: this.lang == 'th' ? cate.name_th : (cate.name_en || cate.name_en),
+  // choose sort by
+  chooseSortBy() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Best Match',
+          handler: () => {
+            this.sortBy = 'Best Match';
+          }
+        },
+        {
+          text: 'Lowest Price First',
+          handler: () => {
+            this.sortBy = 'Lowest Price First';
+          }
+        },
+        {
+          text: 'Highest Price First',
+          handler: () => {
+            this.sortBy = 'Highest Price First';
+          }
+        },
+        {
+          text: 'No. of orders',
+          handler: () => {
+            this.sortBy = 'No. of orders';
+          }
+        },
+        {
+          text: 'Seller Rating',
+          handler: () => {
+            this.sortBy = 'Seller Rating';
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
+    actionSheet.present();
   }
 
-  fnGOToCart() {
-    this.navCtrl.push(ProductCartPage);
+  // show filter modal
+  openFilter(tabName) {
+    // show modal
+    let modal = this.modalCtrl.create(ModalFilterPage, {tabName: tabName});
+
+    // listen for modal close
+    modal.onDidDismiss(confirm => {
+      if (confirm) {
+        // apply filter here
+      } else {
+        // do nothing
+      }
+    });
+
+    modal.present();
   }
-  fnGoToSearch() {
-    this.navCtrl.push(ProductSearchPage);
+
+  // view a item
+  viewItem(itemId) {
+    this.nav.push(ItemPage, {id: itemId})
+  }
+
+  // view cart
+  goToCart() {
+    this.nav.setRoot(CartPage);
   }
 }

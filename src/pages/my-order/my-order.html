@@ -1,0 +1,51 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Orders</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="my-order common-bg">
+  <div class="card light-bg" margin-top *ngFor="let order of orders; let orderIndex = index">
+    <div class="card-header" padding>
+      <div>Order Id: {{ order.transaction_id }}</div>
+      <div>Order Time: {{ order.created_at }}</div>
+    </div>
+
+    <ion-list class="list-full-border" no-margin>
+      <ion-item class="product" *ngFor="let item of order.items; let i = index">
+        <ion-thumbnail item-left>
+          <img src="{{ item.thumb }}">
+        </ion-thumbnail>
+        <!--item's information-->
+        <div>
+          <div text-wrap>{{ item.name }}</div>
+          <div padding-bottom>
+            <span class="pull-right">{{ item.price | currency:'USD':true }} x {{ item.quantity }}</span>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div class="card-footer" padding>
+      <div>
+        <span class="pull-left" ion-text color="gray">Total</span>
+        <span class="pull-right bold" ion-text color="danger">{{ order.total | currency:'USD':true }}</span>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
