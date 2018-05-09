@@ -1,0 +1,137 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+* {
+  font-family: 'supermarket';
+}
+
+.content {
+  background-color: #EDEDED !important;
+}
+
+.font-red {
+  color: #E10000 !important;
+}
+.font-blue {
+  color: #0000FF !important;
+}
+.font-bold {
+  font-weight: bold !important;
+}
+
+.font-18 {
+  font-size: 18px !important;
+}
+.font-14 {
+  font-size: 14px !important;
+}
+.font-10 {
+  font-size: 10px !important;
+}
+.border-bottom {
+  border-bottom: 1px solid #EFEFEF !important;
+}
+.margin-auto {
+  margin:auto !important;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  font-weight: 300;
+  padding: 4px 6px;
+  background-color: rgba(54,198,211, 0.75);
+  color: #fff;
+}
+
+.div-scroll-to-top {
+  padding: 1px;
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  z-index: 10001;
+  right: 10px;
+}
+
+.div-scroll-to-top i {
+  display: inline-block;
+  color: #E10000;
+  font-size: 30px;
+  opacity: .6;
+}
+
+/* ---- หน้าตัวเลือกสินค้า ---- */
+.dx-item-content div{color: #E10000;}
+.short-detail {
+  width: 98%;
+  height: 40px;
+  margin-top: -30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.short-detail p {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.margin-auto > .product-title {
+  white-space: nowrap !important;
+  width: 98% !important;;
+  overflow: hidden !important;;
+  text-overflow: ellipsis !important;;
+}
+
+.list-product {
+  width: 90%;
+  max-width: 115px;
+  max-height: 85px;
+  //margin-top: 0px;
+}
+
+.product-row {
+  height: 100px !important;
+}
+.col1 {
+  max-width: 145px !important;
+}
+
+#tbxQuantity {
+  text-align: center !important;
+}
+
+.box-color {
+  margin-right: 8px;
+  display: inline-block;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #C0C0C0;
+}
+
+.select-box-color {
+  border-color: #E10000 !important;
+}
+
+.box-color .box-color-value{
+  width: 25px !important;
+  height: 25px !important;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #fff;
+}

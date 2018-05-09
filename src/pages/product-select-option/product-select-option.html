@@ -1,0 +1,146 @@
+<!--
+  Generated template for the ProductSelectOptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><span class="font-red">{{ 'SELECT_PRODUCT_OPTION' | translate }}</span></ion-title>
+
+    <ion-buttons end>
+      <!--<button ion-button icon-only>-->
+      <!--<ion-icon name="search"></ion-icon>-->
+      <!--</button>-->
+      <!--<button ion-button icon-only>-->
+      <!--&lt;!&ndash;<ion-icon name="cart"></ion-icon>&ndash;&gt;-->
+      <!--<i class="fa fa-cart-plus font-lg"></i>-->
+      <!--</button>-->
+      <button type="button" class="btn green btn-circle" (click)="fnBuyProduct()">
+        <i class="fa fa-cart-plus font-lg"></i>
+        {{ 'BUY_PRODUCT' | translate }}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <dx-validation-group #val1>
+    <ion-grid>
+      <ion-row class="border-bottom product-row"
+               style="height: 135px;">
+        <ion-col col-3 class="col1">
+          <img src="{{apiService.fnBuildImg(product, 'logo_path')}}" class="list-product">
+        </ion-col>
+        <ion-col col-9 class="io-content margin-auto">
+          <h2 class="font-blue font-lg bold uppercase product-title">
+            {{lang=='th'?product.name_th:(product.name_en||product.name_th)}}</h2>
+          <div class="short-detail" [innerHTML]="lang=='th'?product.detail_th:(product.detail_en||product.detail_th)"
+          ></div>
+          <div>
+            <span class="font-red-thunderbird font-lg bold uppercase">{{'PRICE'|translate}}:</span>
+            <span class="font-green-jungle font-lg sbold">{{ fnGetPrice(product) | number:'1.2-2' }}</span>
+            <span class="font-red-thunderbird font-lg bold uppercase">{{ 'BAHT'|translate }}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="border-bottom">
+        <ion-col col-12>
+          <div *ngFor="let attr of selectAttribute; let idx = index">
+            <span
+              class="font-blue font-lg bold uppercase">{{fnLang(attr.group_name_th, attr.group_name_en)}}: </span>
+            <span class="font-red font-lg uppercase">{{attr.select_value}}</span>
+            <div *ngIf="attr.type==attrType.color">
+              <div class="box-color" *ngFor="let attrVal of attr.attribute;"
+                   (click)="attrVal.is_select=true;
+                   attr.select_value=fnLang(attrVal.attribute_name_th, attrVal.attribute_name_en);
+                   fnSelectNextAttr(idx, attrVal.attribute_id)">
+                <div *ngIf="!attrVal.is_select" class="box-color-value" [style.background-color]="attr.value"></div>
+                <div *ngIf="attrVal.is_select" class="box-color-value-select" [style.background-color]="attr.value"></div>
+              </div>
+            </div>
+            <div *ngIf="attr.type==attrType.radio_button">
+              <dx-radio-group
+                [dataSource]="attr.attribute"
+                [displayExpr]="lang=='th'?'attribute_name_th':'attribute_name_en'" valueExpr="attribute_id"
+                (onValueChanged)="fnGetValueSelect(attr, $event.value, idx)"
+                layout="horizontal">
+                <dx-validator [validationRules]="[{
+                              type: 'required',
+                              message: 'กรุณาเลือก เปิดใช้งาน'
+                            }]"></dx-validator>
+              </dx-radio-group>
+            </div>
+            <div *ngIf="attr.type==attrType.drop_down">
+              <dx-select-box
+                [value]="buyProduct.shipping_method"
+                [dataSource]="attr.attribute"
+                [displayExpr]="lang=='th'?'attribute_name_th':'attribute_name_en'" valueExpr="attribute_id"
+                placeholder="{{'SELECT_SHIPPING_METHOD' | translate}}"
+                [showClearButton]="true"
+              >
+                <dx-validator [validationRules]="[{
+                            type: 'required',
+                            message: 'กรุณากรอกข้อมูล ลำดับ'
+                          }]"></dx-validator>
+              </dx-select-box>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <span class="font-blue font-lg bold uppercase">{{'QUANTITY' | translate}} :</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="border-bottom">
+        <ion-col col-6>
+          <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn red" type="button" (click)="fnDownQuantity()"><i class="fa fa-minus"></i></button>
+              </span>
+            <dx-number-box [(value)]="buyProduct.quantity"
+                           [inputAttr]="{name: 'tbxQuantity', id: 'tbxQuantity'}"
+                           style="text-align:center;!important;"
+                           [min]="1"
+                           [max]="9999999"
+                           format="#0"
+                           [showSpinButtons]="false"
+                           [showClearButton]="false">
+              <dx-validator [validationRules]="[{
+                            type: 'required',
+                            message: 'กรุณากรอกข้อมูล ลำดับ'
+                          }]"></dx-validator>
+            </dx-number-box>
+            <span class="input-group-btn">
+                <button class="btn blue" type="button" (click)="fnAddQuantity()"><i class="fa fa-plus"></i></button>
+              </span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--<ion-row>-->
+        <!--<ion-col col-12>-->
+          <!--<span class="font-blue font-lg bold uppercase">{{'SHIPPING_METHOD' | translate}} :</span>-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+      <!--<ion-row class="border-bottom">-->
+        <!--<ion-col col-9>-->
+          <!--<dx-select-box-->
+            <!--[value]="buyProduct.shipping_method"-->
+            <!--[items]="shippingMethod"-->
+            <!--placeholder="{{'SELECT_SHIPPING_METHOD' | translate}}"-->
+            <!--[showClearButton]="true"-->
+          <!--&gt;-->
+            <!--<dx-validator [validationRules]="[{-->
+                            <!--type: 'required',-->
+                            <!--message: 'กรุณากรอกข้อมูล ลำดับ'-->
+                          <!--}]"></dx-validator>-->
+          <!--</dx-select-box>-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+    </ion-grid>
+  </dx-validation-group>
+</ion-content>

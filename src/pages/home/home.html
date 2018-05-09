@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-navbar>
+  <button ion-button menuToggle>
+  <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="fnGOToCart()">
+        &nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="ios-cart"></ion-icon>
+        <span class="badge"> {{ shareService.count_product }} </span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="min-height: 200px;">
+    <img src="assets/imgs/Marukyo-app-bg.png" style="width: 100%;"/>
+    <!--<p>-->
+    <!--If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.-->
+    <!--</p>-->
+
+    <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+    <!--<h3>Ionic Menu Starter</h3>-->
+  </div>
+</ion-content>
+<ion-footer>
+  <!--<ion-toolbar>-->
+
+  <ion-grid>
+    <ion-row class="row-menu">
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoCategory()">
+          <span class="span-menu">
+            <img class="img-button"
+                 src="assets/icon/icon-product1.png">
+          {{ 'LIST_PRODUCT' | translate }}</span>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoVIPLogin()">
+          <span class="span-menu" *ngIf="!isLogin">
+          <img class="img-button" src="assets/icon/user-login-icon.png">
+            {{ 'VIP_LOGIN' | translate }}
+          </span>
+          <span class="span-menu" *ngIf="isLogin">
+          <img class="img-button" src="assets/icon/user-login-icon.png">
+            {{ 'VIP_PROFILE' | translate }}
+          </span>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoVideo()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/Icon-video.png">
+            {{ 'VIDEO' | translate }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-menu">
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoVendorRegister()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/user-group.png">
+            {{ 'VENDOR_REGISTER' | translate }}</span>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoContactLine()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/icon-line.png">
+            {{ 'LINE_CHAT' | translate }}</span>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoBank()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/icon_bank.png">
+            {{ 'BANK_NO' | translate }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-menu">
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoContact()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/icon-contact-us.png">
+            {{ 'CONTACT_US' | translate }}</span>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoMap()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/icon-map.png">
+            {{ 'MAP' | translate }}</span>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="div-button" (click)="fnGoWebSite()">
+          <span class="span-menu">
+          <img class="img-button" src="assets/icon/icon-wetsite.ico">
+            {{ 'WEB_SITE' | translate }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--</ion-toolbar>-->
+</ion-footer>

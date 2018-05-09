@@ -1,0 +1,151 @@
+{
+  "BACK_BUTTON_TEXT" : "Back",
+
+  "NAME": "Name",
+  "EMAIL": "Email",
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+  "LOGIN": "Sign in",
+  "SIGNUP": "Sign up",
+  "FORGET_PASSWORD": "Forget Password",
+
+  "TAB1_TITLE": "Items",
+  "TAB2_TITLE": "Search",
+  "TAB3_TITLE": "Settings",
+  "SEND": "Send",
+  "BACK": "Back",
+
+  "MAP_TITLE": "Map",
+
+  "TUTORIAL_SKIP_BUTTON" : "Skip",
+  "TUTORIAL_CONTINUE_BUTTON" : "Continue",
+
+  "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
+  "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
+
+  "TUTORIAL_SLIDE2_TITLE": "How to use the Super Starter",
+  "TUTORIAL_SLIDE2_DESCRIPTION": "Assemble the various page types you want and remove the ones you don't. We've provided many common mobile app page layouts, like login and signup pages, tabs, and this tutorial page.",
+
+  "TUTORIAL_SLIDE3_TITLE": "Getting Started",
+  "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
+
+  "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
+
+  "WELCOME_INTRO" : "The starting point for your next great Ionic app",
+
+  "SETTINGS_TITLE": "Settings",
+  "SETTINGS_OPTION1": "Option 1",
+  "SETTINGS_OPTION2": "Option 2",
+  "SETTINGS_OPTION3": "Option 3",
+  "SETTINGS_OPTION4": "Option 4",
+
+  "SETTINGS_PROFILE_BUTTON" : "Edit Profile",
+
+  "SETTINGS_PAGE_PROFILE": "Edit Profile",
+
+  "WELCOME_TITLE": "Welcome",
+
+  "LOGIN_TITLE": "Sign in",
+  "LOGIN_ERROR": "Unable to sign in. Please check your account information and try again.",
+  "LOGIN_BUTTON": "Sign in",
+  "SIGNUP_TITLE": "Sign up",
+  "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
+  "SIGNUP_BUTTON": "Sign up",
+
+  "LIST_MASTER_TITLE": "Items",
+
+  "ITEM_CREATE_TITLE": "New Item",
+  "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+
+  "ITEM_NAME_PLACEHOLDER" : "Name",
+  "ITEM_ABOUT_PLACEHOLDER" : "About",
+
+  "DONE_BUTTON" : "Done",
+  "CANCEL_BUTTON" : "Cancel",
+  "DELETE_BUTTON" : "Delete",
+
+  "CARDS_TITLE": "Social",
+
+  "SEARCH_TITLE": "Search",
+  "SEARCH_PLACEHOLDER" : "Search the items list, e.g. \"Donald Duck\"",
+
+
+  "LIST_PRODUCT": "Products",
+  "VIP_LOGIN": "VIP Login",
+  "VIDEO": "Video",
+  "VIDEO_PLAY": "Play Video",
+  "LINE_CHAT": "LINE",
+  "BANK_NO": "Bank",
+  "CONTACT_US": "Contact Us",
+  "WEB_SITE": "Web Site",
+  "MAP": "Map",
+  "VENDOR_REGISTER": "Vendor Register",
+
+  "CATEGORY": "Categories",
+
+  "COMPANY_NAME": "Company name",
+  "FIRST_NAME_LAST_NAME": "Name",
+  "PHONE": "Tel.",
+  "LINE_ID": "LINE ID",
+  "ADDRESS": "Address",
+  "CITY": "City",
+  "CERTIFICATE_DOC": "Certificate Doc.",
+  "CARD_ID_IMAGE": "Card id image",
+  "FRONT_MARKET_IMAGE": "Front market image",
+
+  "BRANCH": "Branch",
+  "BANK": "Bank No.",
+  "TYPE": "Type",
+  "COPY": "Copy",
+  "COPY_CLIPBOARD": "Copy to clipboard",
+
+  "DESCRIPTION": "Description",
+  "PLEASE_CHECK_INPUT": "Please check input.",
+  "PLEASE_ADD_EMAIL": "Please add email.",
+  "EMAIL_IS_INVALID": "Email is invalid.",
+  "PLEASE_ADD_PASSWORD": "Please add password.",
+  "VIP_PROFILE": "VIP Profile",
+  "LOADING_DATA": "Loading",
+  "DATA_NOT_FOUND": "Data is not found.",
+  "PRICE": "Price",
+  "SUMMARY_PRICE": "Summary",
+  "TOTAL": "Total",
+  "BUY_PRODUCT": "Buy Product",
+  "BAHT": "Baht",
+  "CART": "Shopping Cart",
+  "ADD_TO_CART": "Add to cart",
+  "SELECT_PRODUCT_OPTION": "Product Options",
+  "SEARCH_PRODUCT": "Search",
+  "PRODUCT_FOUND": "Product found {{value}}",
+  "PRODUCT_NOT_FOUND": "Product not found.",
+  "SHIPPING_METHOD": "Shipping Method",
+  "SELECT_SHIPPING_METHOD": "Select Shipping Method",
+  "QUANTITY": "Quantity",
+
+  "PLEASE_ADD_QUANTITY": "Please add quantity.",
+  "PLEASE_SELECT": "Please select.",
+  "PLEASE_SELECT_SHIPPING_METHOD": "Please select shipping method.",
+  "PLEASE_PRODUCT_OPTION": "Please check product options.",
+  "BUY_NOW": "Buy Now",
+  "PLEASE_SELECT_PRODUCT": "Please select product.",
+  "PLEASE_SELECT_COLOR": "Please select color.",
+  "PLEASE_INSERT_QUANTITY": "Please insert quantity.",
+  "CONFIRM_DELETE_PRODUCT": "Do you want delete product?",
+  "YES": "Yes",
+  "CANCEL": "Cancel",
+  "CONFIRM_DELETE": "Cancel",
+  "DO_YOU_WANT_DELETE_DATA": "Cancel",
+  "SELECT_DELIVERY_PRODUCT": "Delivery Product",
+  "DELIVERY_TYPE": "Delivery Type",
+  "DELIVERY_ADDRESS": "Deliver Address",
+  "CONFIRM_BUY_PRODUCT": "Confirm By Product",
+  "ADD_PRODUCT_TO_CART_SUCCESS": "Add product to cart success.",
+  "USER_NOT_FOUND": "User not found.",
+  "EMAIL_NOT_VERIFIED": "Email is not verified.",
+  "EMAIL_NOT_FOUND": "Email {{value}} is not found.",
+  "LOGIN_SUCCESS": "Login Success.",
+  "YOU_NOT_HAVE_A_PERMISSION": "You not have a permission.",
+  "LOGIN_FAIL": "Please check your password.",
+  "RESET_PASSWORD": "Reset Password",
+  "AUTHORIZATION_REQUIRED": "Authorization required."
+}

@@ -1,0 +1,36 @@
+page-home {
+  .div-button {
+    background-color: rgba(0, 0, 0, 0.0302);
+    width: 99%;
+    height: 99%;
+    display:inline-block;
+    text-align:center
+
+  }
+  .row-menu {
+    height: 100px;
+  }
+  .img-button {
+    width: 50px;
+    height: 50px;
+    //position: absolute;
+    margin: auto;
+    //top: 0;
+    //left: 0;
+    //right: 0;
+    //bottom: 20px;
+    display:block;
+  }
+  ion-content {
+    //background-image: url('http://www.marukyo.co.th/themes/leobike/img/patterns/pattern12.png');
+    background-image: url('../assets/imgs/bg1.png');
+  }
+  .span-menu {
+    display:table;
+    margin:0 auto;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #E10000;
+    font-size:13px;
+  }
+}

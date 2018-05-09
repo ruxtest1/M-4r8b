@@ -1,0 +1,92 @@
+<!--
+  Generated template for the VipLoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar align="center">
+    <ion-title><span class="font-red">{{ 'VIP_LOGIN' | translate }}</span></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--<ion-list>-->
+
+  <div class="form">
+    <form role="form">
+      <dx-validation-group #val1>
+        <div class="form-body">
+          <div class="row">
+              <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <label>{{ 'EMAIL' | translate }}:</label>
+                <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-envelope"></i>
+              </span>
+                  <dx-text-box name="id" [(value)]="loginData.id" class="form-control">
+                    <dx-validator [validationRules]="[{
+                            type: 'required',
+                            message: 'PLEASE_ADD_EMAIL' | translate
+                          },{
+                          type: 'email',
+                            message: 'EMAIL_IS_INVALID' | translate
+                          }]"></dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <label>{{ 'PASSWORD' | translate }}:</label>
+                <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-key"></i>
+              </span>
+                  <dx-text-box name="password" type="password" [(value)]="loginData.password" class="form-control">
+                    <dx-validator [validationRules]="[{
+                            type: 'required',
+                            message: 'PLEASE_ADD_PASSWORD' | translate
+                          }]"></dx-validator>
+                  </dx-text-box>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="form-actions right noborder">
+          <button type="button" class="btn red btn-circle" (click)="fnGoForgetPass()">{{ 'FORGET_PASSWORD' | translate }}</button>
+          <button type="button" class="btn blue btn-circle" (click)="fnLogin()">{{ 'LOGIN' | translate }}</button>
+        </div>
+      </dx-validation-group>
+    </form>
+  </div>
+  <!--<ion-item>-->
+  <!--<ion-label>{{ 'EMAIL' | translate }}:</ion-label>-->
+  <!--<ion-input [(ngModel)]="loginData.id"></ion-input>-->
+  <!--</ion-item>-->
+  <!--<ion-item>-->
+  <!--<ion-label>{{ 'PASSWORD' | translate }}:</ion-label>-->
+  <!--<ion-input type="password" [(ngModel)]="loginData.password"></ion-input>-->
+  <!--</ion-item>-->
+  <!--</ion-list>-->
+
+  <!--<ion-row>-->
+    <!--<ion-col col-6>-->
+      <!--<ion-buttons right>-->
+        <!--&lt;!&ndash;<button ion-button color="danger" (click)="fnLogin" round>{{ 'FORGET_PASSWORD' | translate }}</button>&ndash;&gt;-->
+
+        <!--<a class="btn btn-circle btn-primary">{{ 'FORGET_PASSWORD' | translate }}</a>-->
+      <!--</ion-buttons>-->
+    <!--</ion-col>-->
+    <!--<ion-col col-6>-->
+      <!--<ion-buttons right>-->
+        <!--<a href="javascript:;" class="btn btn-circle btn-lg blue" (click)="fnLogin()">-->
+          <!--&lt;!&ndash;<i class="fa fa-file-o"></i> &ndash;&gt;-->
+          <!--{{ 'LOGIN' | translate }} </a>-->
+      <!--</ion-buttons>-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+</ion-content>

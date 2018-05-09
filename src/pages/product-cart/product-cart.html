@@ -1,0 +1,127 @@
+<!--
+  Generated template for the ProductCartPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title><span class="font-red">{{ 'CART' | translate }} ({{listProductCart.length|number}})</span></ion-title>
+
+        <ion-buttons end>
+            <!--<button ion-button icon-only (click)="fnGoHome()">-->
+                <!--<ion-icon name="ios-home-outline"></ion-icon>-->
+            <!--</button>-->
+
+            <a href="javascript:;" *ngIf="someSelect" class="btn red btn-sm" (click)="fnDeleteProduct()">
+                <i class="fa fa-trash-o font-18"></i></a>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row *ngIf="!listProductCart.length">
+            <ion-col col-12 padding>
+                <div class="alert alert-warning center">{{ 'PRODUCT_NOT_FOUND'| translate }}</div>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="listProductCart.length">
+            <ion-col col-12 padding>
+                <div class="portlet box blue box-m">
+                    <div class="portlet-title">
+                        <div class="caption">
+                           <dx-check-box [(value)]="selectAll" (click)="fnSetCheckAll()"></dx-check-box> All
+                        </div>
+                        <div class="actions ">
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet box blue box-product" *ngFor="let product of listProductCart; let idx = index">
+                    <!--<div class="portlet-title">-->
+                        <!--<div class="caption">-->
+                            <!--&lt;!&ndash;<i class="fa fa-gift"></i>&ndash;&gt;-->
+                            <!--<dx-check-box [(value)]="product.is_select" (click)="fnSelectProduct()"></dx-check-box>-->
+                            <!--{{ fnLang(product.data.name_th, product.data.name_en) }}-->
+                        <!--</div>-->
+                        <!--<div class="actions">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="portlet-body">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-1 align-self-center>
+                                    <dx-check-box [(value)]="product.is_select" (click)="fnSelectProduct()"></dx-check-box>
+                                </ion-col>
+                                <ion-col col-3 align-self-center>
+                                    <img src="{{apiService.fnBuildImg(product.data, 'logo_path')}}" class="list-product">
+                                </ion-col>
+                                <ion-col col-8>
+                                    <h2 class="font-blue font-lg bold uppercase product-title">{{fnLang(product.data.name_th, product.data.name_en)}}</h2>
+                                    <div class="price">
+                                        <span class="font-red-thunderbird font-lg bold uppercase">{{'PRICE'|translate}}:</span>
+                                        <span class="font-green-jungle font-lg sbold">{{ product.data.price1 | number:'1.2-2' }}</span>
+                                        <span class="font-red-thunderbird font-lg bold uppercase">{{'BAHT'|translate}}</span>
+                                    </div>
+                                    <div class="category" *ngIf="product.select_attribute.length">
+                                        <a href="javascript:;" ><i class="fa fa-pencil"></i></a>
+                                        <span class="font-red-thunderbird font-lg">{{'CATEGORY'|translate}}:</span>
+                                        <span class="font-green-jungle">{{fnBuildCatStr(product.select_attribute)}}</span>
+                                    </div>
+                                    <!--<div class="short-detail" [innerHTML]="fnLang(product.data.detail_th, product.data.detail_en)"></div>-->
+                                    <div class="input-group" style="width: 146px;">
+                              <span class="input-group-btn">
+                                <button class="btn red" type="button" (click)="product.quantity=fnDownQuantity(product.quantity)"><i class="fa fa-minus"></i></button>
+                              </span>
+                                        <dx-number-box [(value)]="product.quantity"
+                                                       [inputAttr]="{name: 'tbxQuantity', id: 'tbxQuantity'}"
+                                                       style="text-align:center;!important;"
+                                                       [width]="60"
+                                                       [min]="1"
+                                                       [max]="9999999"
+                                                       format="#0"
+                                                       [showSpinButtons]="false"
+                                                       [showClearButton]="false">
+                                            <dx-validator [validationRules]="[{
+                                        type: 'required',
+                                        message: 'กรุณากรอกข้อมูล ลำดับ'
+                                      }]"></dx-validator>
+                                        </dx-number-box>
+                                        <span class="input-group-btn">
+                                <button class="btn blue" type="button" (click)="product.quantity=fnAddQuantity(product.quantity)"><i class="fa fa-plus"></i></button>
+                              </span>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <!--<div class="col-md-4">-->
+                            <!--<img src="{{fnBuildImageUrl(product.data.logo_path_thumbnail)}}" class="list-product">-->
+                        <!--</div>-->
+                        <!--<div class="col-md-8">-->
+                            <!---->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <span class="font-red-thunderbird font-lg bold uppercase">{{'TOTAL'|translate}}:</span>
+        <span class="font-green-jungle font-lg sbold">{{ total | number:'1.2-2' }}</span>
+        <span class="font-red-thunderbird font-lg bold uppercase">{{'BAHT'|translate}}</span>
+        <ion-buttons end>
+            <!--<button ion-button icon-only (click)="fnGoHome()">-->
+                <!--<ion-icon name="ios-home-outline"></ion-icon>{{'BUY_PRODUCT'|translate}}-->
+            <!--</button>-->
+
+            <a href="javascript:;" *ngIf="someSelect" class="btn green btn-sm" (click)="fnGoConfirmBuy()">
+                <span class="bold uppercase font-14">{{'BUY_PRODUCT'|translate}}</span>
+            </a>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>
