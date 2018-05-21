@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {CategoryService} from '../../services/category-service';
 import {ItemService} from '../../services/item-service';
@@ -8,6 +8,15 @@ import {ItemPage} from "../item/item";
 import {SearchPage} from "../search/search";
 import {CartPage} from "../cart/cart";
 
+import {Service} from "../../providers/service";
+import {SharedService} from "../../providers/shared.service";
+import {DEFAULT} from "../../app/app.constant";
+import {LoginPage} from "../login/login";
+import {VideoPage} from "../video/video";
+import {ContactUsPage} from "../contact-us/contact-us";
+import {BankPage} from "../bank/bank";
+import {MapPage} from "../map/map";
+import {VendorRegisterPage} from "../vendor-register/vendor-register";
 
 /*
  Generated class for the LoginPage page.
@@ -16,57 +25,152 @@ import {CartPage} from "../cart/cart";
  Ionic pages and navigation.
  */
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
-export class HomePage {
-  // list slides for slider
-  public slides = [
-    {
-      src: 'assets/img/slide_1.jpg'
-    },
-    {
-      src: 'assets/img/slide_2.jpg'
-    },
-    {
-      src: 'assets/img/slide_3.jpg'
+export class HomePage implements OnInit {
+    api = DEFAULT.config;
+    // list slides for slider
+    public slides = [
+        {
+            src: 'assets/img/Marukyo-app-bg-750.png'
+        },
+    ];
+    showMenu = false;
+
+    // list categories
+    public categories: any;
+
+    // list of items
+    public items: any;
+
+    public list_product;
+    timeSearch = null;
+    scrollAmount = 0;
+    isMax = false;
+    isProductNotFound = true;
+    hideMsg = true;
+    limit = 10;
+    page = 0;
+
+    constructor(public nav: NavController,
+                public categoryService: CategoryService,
+                public zone: NgZone,
+                public sv: Service,
+                public shareService: SharedService,
+                public itemService: ItemService) {
+        this.categories = categoryService.getAll();
+
+        this.items = itemService.getAll();
     }
-  ];
 
-  // list categories
-  public categories: any;
+    async ngOnInit() {
+        // this.userData = await this.sv.getUserData();
+        // this.lang = this.shareService.lang;
+        // this.product_id = this.navParams.get('id');
+        const products = await this.fnGetList(1, this.limit)
+        this.list_product = products.rows;
+    }
 
-  // list of items
-  public items: any;
+    // view categories
+    viewCategories() {
+        this.nav.push(CategoriesPage);
+    }
 
-  constructor(public nav: NavController, public categoryService: CategoryService, public itemService: ItemService) {
-    this.categories = categoryService.getAll();
+    // view a category
+    viewCategory(catId) {
+        this.nav.push(CategoryPage, {id: catId});
+    }
 
-    this.items = itemService.getAll();
-  }
+    // view a item
+    viewItem(itemId) {
+        this.nav.push(ItemPage, {id: itemId})
+    }
 
-  // view categories
-  viewCategories() {
-    this.nav.push(CategoriesPage);
-  }
+    // go to search page
+    goToSearch() {
+        this.nav.push(SearchPage);
+    }
 
-  // view a category
-  viewCategory(catId) {
-    this.nav.push(CategoryPage, {id: catId});
-  }
+    // view cart
+    goToCart() {
+        this.nav.push(CartPage);
+    }
 
-  // view a item
-  viewItem(itemId) {
-    this.nav.push(ItemPage, {id: itemId})
-  }
+    scrollHandler(event) {
+        this.zone.run(() => {
+            if (this.timeSearch) {
+                clearTimeout(this.timeSearch);
+            }
+            this.timeSearch = setTimeout(() => {
+                this.scrollAmount = event.scrollTop;
+            }, 100);
+        });
+    }
 
-  // go to search page
-  goToSearch() {
-    this.nav.push(SearchPage);
-  }
+    async fnGetList(page, limit) {
+        try {
+            const filter = {search: '', take: limit, skip: page * limit};
+            return this.sv.get(this.api.product.search, filter);
+        } catch (err) {
+            return false;
+        }
+    }
 
-  // view cart
-  goToCart() {
-    this.nav.setRoot(CartPage);
-  }
+    async doInfinite(infiniteScroll) {
+        if (!this.isMax) {
+            this.page++;
+            let newItems = await this.fnGetList(this.page, this.limit);
+            if (newItems != false) {
+                this.isMax = newItems.rows.length > 0 ? false : true;
+                this.isProductNotFound = newItems.totalCount > 0 ? false : true;
+            }
+            setTimeout(() => {
+                if (newItems != false) {
+                    for (let i in newItems.rows) {
+                        this.list_product.push(newItems.rows[i]);
+                    }
+                }
+                infiniteScroll.complete();
+            }, 500);
+        } else {
+            infiniteScroll.complete();
+        }
+    }
+
+    fnProductPrice(data: any) {
+        return this.sv.fnProductPrice(data);
+    }
+
+    fnGoCategory() {
+        this.nav.push(CategoriesPage);
+    }
+
+    fnGoVIPLogin() {
+        this.nav.push(LoginPage);
+    }
+
+    fnGoVendorRegister() {
+        this.nav.push(VendorRegisterPage);
+    }
+
+    fnGoVideo() {
+        this.nav.push(VideoPage);
+    }
+
+    fnGoContactLine() {
+        window.open('https://line.me/R/ti/p/%40marukyo', '_system', 'location=yes');
+    }
+
+    fnGoBank() {
+        this.nav.push(BankPage);
+    }
+
+    fnGoContact() {
+        this.nav.push(ContactUsPage);
+    }
+
+    fnGoMap() {
+        this.nav.push(MapPage);
+    }
 }

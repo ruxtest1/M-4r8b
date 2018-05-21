@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Search</ion-title>
+    <ion-title>{{'SEARCH_PRODUCT'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -19,25 +19,21 @@
 <ion-content>
   <ion-list class="list-full-border">
     <ion-item>
-      <ion-input type="text" placeholder="I'm shopping for"></ion-input>
+      <ion-input #input type="search" [(ngModel)]="textSearch" placeholder="{{'SEARCH_TEXT'|translate}}"
+                 (keyup.enter)="goToSearchResult($event)"></ion-input>
     </ion-item>
   </ion-list>
 
   <!--search history-->
   <ion-list class="list-no-border">
-    <ion-item>
+    <ion-item *ngFor="let search of searchHistoryList; let idx = index">
       <ion-icon name="md-time" item-left></ion-icon>
-      <div>Mi4</div>
-      <ion-icon name="close-circle" item-right color="gray"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="md-time" item-left></ion-icon>
-      <div>Redmi 3s</div>
-      <ion-icon name="close-circle" item-right color="gray"></ion-icon>
+      <div (click)="fnSelectOldSearch(search)">{{search}}</div>
+      <ion-icon name="close-circle" item-right color="gray" (click)="fnRemoveSearch(idx)"></ion-icon>
     </ion-item>
   </ion-list>
 
-  <div text-right padding>
-    <span ion-text color="danger">Clear history</span>
+  <div text-right padding *ngIf="searchHistoryList.length">
+    <span ion-text color="danger" (click)="fnRemoveAllSearch()">Clear history</span>
   </div>
 </ion-content>

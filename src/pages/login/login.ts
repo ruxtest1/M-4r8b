@@ -29,6 +29,10 @@ export class LoginPage {
     this.nav.setRoot(HomePage);
   }
 
+  fnGoToHome() {
+    this.nav.setRoot(HomePage);
+  }
+
   // go to forgot password page
   forgotPwd() {
     this.nav.push(ForgotPasswordPage);

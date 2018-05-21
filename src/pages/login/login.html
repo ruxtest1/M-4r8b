@@ -7,7 +7,12 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Login</ion-title>
+    <ion-title>{{ 'LOGIN' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="fnGoToHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,28 +21,28 @@
   <ion-list class="list-form">
 
     <ion-item>
-      <ion-input type="text" placeholder="Email"></ion-input>
+      <ion-input type="text" placeholder="{{ 'EMAIL' | translate }}"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input type="password" placeholder="Password"></ion-input>
+      <ion-input type="password" placeholder="{{ 'PASSWORD' | translate }}"></ion-input>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button color="primary" block (click)="login()">LOGIN</button>
+  <button ion-button color="primary" block (click)="login()">{{ 'LOGIN' | translate }}</button>
 
-  <div text-right margin-top margin-bottom (click)="forgotPwd()">Forgot password?</div>
+  <div text-right margin-top margin-bottom (click)="forgotPwd()">{{ 'FORGET_PASSWORD' | translate }}?</div>
 
-  <button ion-button icon-left block color="facebook" class="align-left">
-    <ion-icon name="logo-facebook"></ion-icon>
-    Signin with Facebook
-  </button>
+  <!--<button ion-button icon-left block color="facebook" class="align-left">-->
+    <!--<ion-icon name="logo-facebook"></ion-icon>-->
+    <!--Signin with Facebook-->
+  <!--</button>-->
 
-  <button ion-button icon-left block color="light" margin-top class="align-left card">
-    <ion-icon name="logo-google"></ion-icon>
-    <span>Signin with Google</span>
-  </button>
+  <!--<button ion-button icon-left block color="light" margin-top class="align-left card">-->
+    <!--<ion-icon name="logo-google"></ion-icon>-->
+    <!--<span>Signin with Google</span>-->
+  <!--</button>-->
 
   <div class="align-bottom" padding text-center>
     No Account? <span class="bold" (click)="register()">Register</span>

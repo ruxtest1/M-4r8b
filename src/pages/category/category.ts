@@ -1,11 +1,15 @@
-import {Component} from '@angular/core';
-import {NavController, ActionSheetController, ModalController} from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import {NavController,NavParams, ActionSheetController, ModalController} from 'ionic-angular';
 
 import {ItemService} from '../../services/item-service';
 import {CategoryService} from '../../services/category-service';
 import {ModalFilterPage} from "../modal-filter/modal-filter";
 import {ItemPage} from "../item/item";
 import {CartPage} from "../cart/cart";
+import {Service} from "../../providers/service";
+import {SharedService} from "../../providers/shared.service";
+import {DEFAULT} from "../../app/app.constant";
+import {CategoryProductPage} from "../category-product/category-product";
 
 /*
  Generated class for the LoginPage page.
@@ -17,21 +21,41 @@ import {CartPage} from "../cart/cart";
   selector: 'page-category',
   templateUrl: 'category.html'
 })
-export class CategoryPage {
+export class CategoryPage implements OnInit{
+    api = DEFAULT.config;
+    public list_product;
+    public countProduct = 0;
+    isProductNotFound = true;
+    lang = 'th';
+    urlUpload;
+    userData;
+    main_id;
+    title;
+    page = 0;
+    limit = 10;
+    public isMax = false;
+    public scrollAmount = 0;
+    timeScroll = null;
+    list_category = [];
+
   // list items of this category
   public items: any;
 
   // category info
   public category: any;
 
-  // view type
-  public viewType = 'list';
 
   // sort by
   public sortBy = 'Best Match';
 
-  constructor(public nav: NavController, public itemService: ItemService, public categoryService: CategoryService,
-              public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController) {
+  constructor(public nav: NavController,
+              public itemService: ItemService,
+              public categoryService: CategoryService,
+              public modalCtrl: ModalController,
+              public navParams: NavParams,
+              public apiService: Service,
+              public shareService: SharedService,
+              public actionSheetCtrl: ActionSheetController) {
     // get list items of a category as sample
     this.items = itemService.getByCategory(1);
 
@@ -39,82 +63,19 @@ export class CategoryPage {
     this.category = categoryService.getItem(1);
   }
 
-  // switch to list view
-  viewList() {
-    this.viewType = 'list';
-  }
+    ngOnInit() {
+        this.main_id = this.navParams.get('id');
+        this.title = this.navParams.get('name');
+        this.fnGetCatGroup();
+    }
 
-  // swith to grid view
-  viewGrid() {
-    this.viewType = 'grid';
-  }
+    async fnGetCatGroup() {
+        this.list_category = await this.apiService.get(this.api.category.catSub, {main_id: this.main_id});
+    }
 
   // get discount percent
   discountPercent(originPrice, salePrice) {
     return Math.round((salePrice - originPrice) * 100 / originPrice)
-  }
-
-  // choose sort by
-  chooseSortBy() {
-    let actionSheet = this.actionSheetCtrl.create({
-      buttons: [
-        {
-          text: 'Best Match',
-          handler: () => {
-            this.sortBy = 'Best Match';
-          }
-        },
-        {
-          text: 'Lowest Price First',
-          handler: () => {
-            this.sortBy = 'Lowest Price First';
-          }
-        },
-        {
-          text: 'Highest Price First',
-          handler: () => {
-            this.sortBy = 'Highest Price First';
-          }
-        },
-        {
-          text: 'No. of orders',
-          handler: () => {
-            this.sortBy = 'No. of orders';
-          }
-        },
-        {
-          text: 'Seller Rating',
-          handler: () => {
-            this.sortBy = 'Seller Rating';
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
-  // show filter modal
-  openFilter(tabName) {
-    // show modal
-    let modal = this.modalCtrl.create(ModalFilterPage, {tabName: tabName});
-
-    // listen for modal close
-    modal.onDidDismiss(confirm => {
-      if (confirm) {
-        // apply filter here
-      } else {
-        // do nothing
-      }
-    });
-
-    modal.present();
   }
 
   // view a item
@@ -126,4 +87,11 @@ export class CategoryPage {
   goToCart() {
     this.nav.setRoot(CartPage);
   }
+
+    goToDetail(cate: any) {
+        this.nav.push(CategoryProductPage, {
+            id: cate.id,
+            name: this.apiService.fnLang(cate, 'name'),
+        });
+    }
 }

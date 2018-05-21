@@ -1,0 +1,38 @@
+<!--
+  Generated template for the MapPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ 'MAP' | translate }}</ion-title>
+
+        <ion-buttons end>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-list >
+        <ion-item-sliding #item *ngFor="let row of list_data">
+            <ion-item (click)="fnGoToDetail(row)">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-3>
+                            <img src="assets/icon/icon-map.png" width="70">
+                        </ion-col>
+                        <ion-col col-9>
+                            <h2 class="font-blue font-bold">{{apiService.fnLang(row, 'title')}}</h2>
+                            <span>{{apiService.fnLang(row, 'detail')}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="primary" (click)="fnGoWeb(row.url)">{{'GO_WEB_SITE'| translate}}</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
