@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {SearchResultPage} from "../search-result/search-result";
 import {Service} from "../../providers/service";
+import {HomePage} from "../home/home";
 // import { Keyboard } from 'ionic-native';
 
 
@@ -64,5 +65,8 @@ export class SearchPage implements OnInit {
         this.searchHistoryList = []
     }
 
+    fnGoToHome() {
+        this.nav.setRoot(HomePage);
+    }
 
 }

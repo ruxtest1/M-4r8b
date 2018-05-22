@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController,NavParams, ActionSheetController, ModalController} from 'ionic-angular';
+import {NavController, NavParams, ActionSheetController, ModalController} from 'ionic-angular';
 
 import {ItemService} from '../../services/item-service';
 import {CategoryService} from '../../services/category-service';
@@ -10,6 +10,7 @@ import {Service} from "../../providers/service";
 import {SharedService} from "../../providers/shared.service";
 import {DEFAULT} from "../../app/app.constant";
 import {CategoryProductPage} from "../category-product/category-product";
+import {SearchPage} from "../search/search";
 
 /*
  Generated class for the LoginPage page.
@@ -18,10 +19,10 @@ import {CategoryProductPage} from "../category-product/category-product";
  Ionic pages and navigation.
  */
 @Component({
-  selector: 'page-category',
-  templateUrl: 'category.html'
+    selector: 'page-category',
+    templateUrl: 'category.html'
 })
-export class CategoryPage implements OnInit{
+export class CategoryPage implements OnInit {
     api = DEFAULT.config;
     public list_product;
     public countProduct = 0;
@@ -38,30 +39,30 @@ export class CategoryPage implements OnInit{
     timeScroll = null;
     list_category = [];
 
-  // list items of this category
-  public items: any;
+    // list items of this category
+    public items: any;
 
-  // category info
-  public category: any;
+    // category info
+    public category: any;
 
 
-  // sort by
-  public sortBy = 'Best Match';
+    // sort by
+    public sortBy = 'Best Match';
 
-  constructor(public nav: NavController,
-              public itemService: ItemService,
-              public categoryService: CategoryService,
-              public modalCtrl: ModalController,
-              public navParams: NavParams,
-              public apiService: Service,
-              public shareService: SharedService,
-              public actionSheetCtrl: ActionSheetController) {
-    // get list items of a category as sample
-    this.items = itemService.getByCategory(1);
+    constructor(public nav: NavController,
+                public itemService: ItemService,
+                public categoryService: CategoryService,
+                public modalCtrl: ModalController,
+                public navParams: NavParams,
+                public apiService: Service,
+                public shareService: SharedService,
+                public actionSheetCtrl: ActionSheetController) {
+        // get list items of a category as sample
+        this.items = itemService.getByCategory(1);
 
-    // set category info
-    this.category = categoryService.getItem(1);
-  }
+        // set category info
+        this.category = categoryService.getItem(1);
+    }
 
     ngOnInit() {
         this.main_id = this.navParams.get('id');
@@ -73,25 +74,30 @@ export class CategoryPage implements OnInit{
         this.list_category = await this.apiService.get(this.api.category.catSub, {main_id: this.main_id});
     }
 
-  // get discount percent
-  discountPercent(originPrice, salePrice) {
-    return Math.round((salePrice - originPrice) * 100 / originPrice)
-  }
+    // get discount percent
+    discountPercent(originPrice, salePrice) {
+        return Math.round((salePrice - originPrice) * 100 / originPrice)
+    }
 
-  // view a item
-  viewItem(itemId) {
-    this.nav.push(ItemPage, {id: itemId})
-  }
+    // view a item
+    viewItem(itemId) {
+        this.nav.push(ItemPage, {id: itemId})
+    }
 
-  // view cart
-  goToCart() {
-    this.nav.setRoot(CartPage);
-  }
+    // view cart
+    goToCart() {
+        this.nav.setRoot(CartPage);
+    }
 
     goToDetail(cate: any) {
         this.nav.push(CategoryProductPage, {
             id: cate.id,
             name: this.apiService.fnLang(cate, 'name'),
         });
+    }
+
+    // go to search page
+    goToSearch() {
+        this.nav.push(SearchPage);
     }
 }

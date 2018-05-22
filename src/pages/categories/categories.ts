@@ -4,6 +4,7 @@ import {Service} from "../../providers/service";
 import {SharedService} from "../../providers/shared.service";
 import {DEFAULT} from "../../app/app.constant";
 import {CategoryPage} from "../category/category";
+import {SearchPage} from "../search/search";
 // import {VideoPage} from "../video/video";
 // import {CategorySubPage} from "../category-sub/category-sub";
 // import {ProductCartPage} from "../product-cart/product-cart";
@@ -54,8 +55,9 @@ export class CategoriesPage implements OnInit {
         // this.navCtrl.push(ProductCartPage);
     }
 
-    fnGoToSearch() {
-        // this.navCtrl.push(ProductSearchPage);
+    // go to search page
+    goToSearch() {
+        this.navCtrl.push(SearchPage);
     }
 
     fnGoToCate(cate: any) {

@@ -31,17 +31,17 @@
       <!--</ion-slide>-->
     <!--</ion-slides>-->
 
-    <div class="rlt">
-      <button ion-button class="btn-wish-list card" (click)="toggleWishList(item)" color="light">
-        <ion-icon name="md-heart" color="gray" [hidden]="item.on_wish_list"></ion-icon>
-        <ion-icon name="md-heart" color="danger" [hidden]="!item.on_wish_list"></ion-icon>
-      </button>
-    </div>
+    <!--<div class="rlt">-->
+      <!--<button ion-button class="btn-wish-list card" (click)="toggleWishList(item)" color="light">-->
+        <!--<ion-icon name="md-heart" color="gray" [hidden]="item.on_wish_list"></ion-icon>-->
+        <!--<ion-icon name="md-heart" color="danger" [hidden]="!item.on_wish_list"></ion-icon>-->
+      <!--</button>-->
+    <!--</div>-->
 
     <div text-center padding margin-top class="border-bottom">
       <p [innerHTML]="sv.fnLang(productData, 'detail_short')"></p>
-      <h1 class="price" ion-text color="danger" margin-top *ngIf="productData.sale_price">{{ item.sale_price | currency:'฿':true }}</h1>
-      <h1 class="price" ion-text color="danger" margin-top *ngIf="!productData.sale_price">{{ item.price | currency:'฿':true }}</h1>
+      <h1 class="price" ion-text color="danger" margin-top *ngIf="productData.sale_price">{{ productData.sale_price | currency:'฿':true }}</h1>
+      <h1 class="price" ion-text color="danger" margin-top *ngIf="!productData.sale_price">{{ productData.price | currency:'฿':true }}</h1>
       <h2 class="origin-price text-decoration" ion-text color="gray" margin-top *ngIf="productData.sale_price">{{ productData.price |
         currency:'฿':true }}</h2>
     </div>
@@ -65,32 +65,32 @@
   </div>
 
   <!--item options-->
-  <div class="card light-bg" margin-top>
-    <ion-item class="no-border">
-      <div>
-        <div>{{ getOptionGroupsName(item) }}</div>
-        <div>
-          <span ion-text color="gray" class="pull-left" *ngIf="item.shipping == 0">Free shipping</span>
-          <span ion-text color="gray" class="pull-left" *ngIf="item.shipping != 0">Shipping: {{ item.shipping | currency:'฿':true}}</span>
-        </div>
-      </div>
+  <!--<div class="card light-bg" margin-top>-->
+    <!--<ion-item class="no-border">-->
+      <!--<div>-->
+        <!--<div>{{ getOptionGroupsName(item) }}</div>-->
+        <!--<div>-->
+          <!--<span ion-text color="gray" class="pull-left" *ngIf="item.shipping == 0">Free shipping</span>-->
+          <!--<span ion-text color="gray" class="pull-left" *ngIf="item.shipping != 0">Shipping: {{ item.shipping | currency:'฿':true}}</span>-->
+        <!--</div>-->
+      <!--</div>-->
 
-      <div item-right>
-        <span class="bold" ion-text color="secondary" (click)="showOptions(item)">SELECT</span>
-      </div>
-    </ion-item>
+      <!--<div item-right>-->
+        <!--<span class="bold" ion-text color="secondary" (click)="showOptions(item)">SELECT</span>-->
+      <!--</div>-->
+    <!--</ion-item>-->
 
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button block class="btn-add-cart" (click)="showOptions(item)">ADD TO CART</button>
-        </ion-col>
-        <ion-col>
-          <button ion-button color="primary" block (click)="showOptions(item)">BUY NOW</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+    <!--<ion-grid>-->
+      <!--<ion-row>-->
+        <!--<ion-col>-->
+          <!--<button ion-button block class="btn-add-cart" (click)="showOptions(item)">ADD TO CART</button>-->
+        <!--</ion-col>-->
+        <!--<ion-col>-->
+          <!--<button ion-button color="primary" block (click)="showOptions(item)">BUY NOW</button>-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+    <!--</ion-grid>-->
+  <!--</div>-->
 
   <!--Description-->
   <div class="card light-bg" margin-top>

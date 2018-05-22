@@ -2,8 +2,8 @@ export const DEFAULT = {
     "config": {
         "debug": false,
         "protocol": "http://",
-        // "host": "ruxnutt.thddns.net",
-        "host": "localhost",
+        "host": "ruxnutt.thddns.net",
+        // "host": "localhost",
         "port": 4942,
         "checkAuthen": "/current",
         "loginPage": "login",

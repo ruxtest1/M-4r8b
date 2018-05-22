@@ -5,6 +5,7 @@ import {SharedService} from "../../providers/shared.service";
 import {DEFAULT} from "../../app/app.constant";
 import {ModalFilterPage} from "../modal-filter/modal-filter";
 import {ItemPage} from "../item/item";
+import {SearchPage} from "../search/search";
 // import {CategorySubPage} from "../category-sub/category-sub";
 // import {ProductDetailPage} from "../product-detail/product-detail";
 // import {ProductCartPage} from "../product-cart/product-cart";
@@ -215,8 +216,9 @@ export class CategoryProductPage implements OnInit {
         // this.navCtrl.push(ProductCartPage);
     }
 
-    fnGoToSearch() {
-        // this.navCtrl.push(ProductSearchPage);
+    // go to search page
+    goToSearch() {
+        this.navCtrl.push(SearchPage);
     }
 
 }

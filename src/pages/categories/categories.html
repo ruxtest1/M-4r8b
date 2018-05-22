@@ -10,12 +10,15 @@
         <ion-title>{{ 'CATEGORY' | translate }}</ion-title>
 
         <ion-buttons end>
-            <button ion-button icon-only (click)="fnGoToSearch()">
+            <button ion-button icon-only (click)="goToSearch()">
                 <ion-icon name="search"></ion-icon>
             </button>
+            <!--<button ion-button icon-only (click)="fnGOToCart()">-->
+                <!--&nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="ios-cart"></ion-icon>-->
+                <!--<span class="badge"> {{ shareService.count_product }} </span>-->
+            <!--</button>-->
             <button ion-button icon-only (click)="fnGOToCart()">
-                &nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="ios-cart"></ion-icon>
-                <span class="badge"> {{ shareService.count_product }} </span>
+                <ion-icon name="cart"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>

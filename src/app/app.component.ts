@@ -33,64 +33,7 @@ export class MyApp {
 
     // public nav: any;
 
-    public pages = [
-        {
-            title: 'Home',
-            icon: 'ios-home-outline',
-            count: 0,
-            component: HomePage
-        },
-
-        {
-            title: 'Categories',
-            icon: 'ios-list-box-outline',
-            count: 0,
-            component: CategoriesPage
-        },
-
-        {
-            title: 'WishList',
-            icon: 'md-heart-outline',
-            count: 2,
-            component: WishListPage
-        },
-
-        {
-            title: 'My Order',
-            icon: 'ios-timer-outline',
-            count: 0,
-            component: MyOrderPage
-        },
-
-        {
-            title: 'My Account',
-            icon: 'ios-contact-outline',
-            count: 0,
-            component: MyAccountPage
-        },
-
-        {
-            title: 'Cart',
-            icon: 'ios-cart-outline',
-            count: 1,
-            component: CartPage
-        },
-
-        {
-            title: 'Settings',
-            icon: 'ios-settings-outline',
-            count: 0,
-            component: SettingsPage
-        },
-
-        {
-            title: 'Logout',
-            icon: 'log-out',
-            count: 0,
-            component: LoginPage
-        },
-        // import menu
-    ];
+    public pages = [];
 
     constructor(private translate: TranslateService,
                 public platform: Platform,
@@ -106,7 +49,72 @@ export class MyApp {
 
         this.initializeApp();
         this.initTranslate();
+        this.fnInitMenu();
         this.fnCheckRootPage();
+    }
+
+    async fnInitMenu() {
+        this.pages = [
+            {
+                title: 'HOME',
+                icon: 'ios-home-outline',
+                count: 0,
+                component: HomePage,
+                set_root: true
+            },
+
+            {
+                title: 'CATEGORY',
+                icon: 'ios-list-box-outline',
+                count: 0,
+                component: CategoriesPage,
+                set_root: false
+            },
+
+            // {
+            //     title: 'WishList',
+            //     icon: 'md-heart-outline',
+            //     count: 2,
+            //     component: WishListPage
+            // },
+            //
+            // {
+            //     title: 'My Order',
+            //     icon: 'ios-timer-outline',
+            //     count: 0,
+            //     component: MyOrderPage
+            // },
+            //
+            // {
+            //     title: 'My Account',
+            //     icon: 'ios-contact-outline',
+            //     count: 0,
+            //     component: MyAccountPage
+            // },
+
+            // {
+            //     title: 'Cart',
+            //     icon: 'ios-cart-outline',
+            //     count: 1,
+            //     component: CartPage
+            // },
+
+            {
+                title: 'SETTINGS_TITLE',
+                icon: 'ios-settings-outline',
+                count: 0,
+                component: SettingsPage,
+                set_root: false
+            },
+
+            // {
+            //     title: 'Logout',
+            //     icon: 'log-out',
+            //     count: 0,
+            //     component: LoginPage
+            // },
+            // import menu
+        ];
     }
 
     async initializeApp() {
@@ -153,7 +161,11 @@ export class MyApp {
     openPage(page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component);
+        if (page.set_root){
+            this.nav.setRoot(page.component);
+        } else {
+            this.nav.push(page.component);
+        }
     }
 
     public fnShowLoading() {

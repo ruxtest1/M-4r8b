@@ -28,6 +28,7 @@ import * as ionicGalleryModal from 'ionic-gallery-modal';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import {DxFileUploaderModule} from 'devextreme-angular/ui/file-uploader';
+import {DxSwitchModule} from 'devextreme-angular/ui/switch';
 // end import services
 // end import services
 
@@ -111,6 +112,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClientModule,
         HttpModule,
         DxFileUploaderModule,
+        DxSwitchModule,
         ionicGalleryModal.GalleryModalModule,
         TranslateModule.forRoot({
             loader: {

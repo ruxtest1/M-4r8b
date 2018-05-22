@@ -29,6 +29,8 @@ export class VendorRegisterPage {
         'name_en': '',
         'email': '',
         'phone': '',
+        'image_card_no_path': '',
+        'image_front_store_path': '',
     };
     validationMessages = {
         'name_th': {
@@ -41,14 +43,21 @@ export class VendorRegisterPage {
         },
         'phone': {
             'required': 'กรุณากรอกเบอร์โทร'
+        },
+        'image_card_no_path': {
+            'required': 'กรุณาเลือกรูปบัตรประชาชน'
+        },
+        'image_front_store_path': {
+            'required': 'กรุณาเลือกรูปหน้าร้าน'
         }
     };
-    file_certificate = [];
     image_card_no_path = '';
     image_front_store_path = [];
+    file_certificate = [];
     urlUpload: any = '';
     urlUploadFile: any = '';
     disableBtn = false;
+    startValidate = false;
 
 
     powers = ['Really Smart', 'Super Flexible', 'Weather Changer'];
@@ -75,6 +84,12 @@ export class VendorRegisterPage {
                 },
                 'phone': {
                     'required': 'Phone is required.'
+                },
+                'image_card_no_path': {
+                    'required': 'Please select image card id no.'
+                },
+                'image_front_store_path': {
+                    'required': 'Please select image front store.'
                 },
             };
         }
@@ -120,7 +135,7 @@ export class VendorRegisterPage {
                 'image_front_store_path': [''],
             });
             this.registerDataEN.valueChanges.subscribe(data => this.onValueChanged(this.registerData.controls));
-            this.onValueChanged();
+            // this.onValueChanged();
         }
         // this.registerData = new FormGroup({
         //     'name': new FormControl(this.hero.name, [
@@ -131,6 +146,10 @@ export class VendorRegisterPage {
         //     'alterEgo': new FormControl(this.hero.alterEgo),
         //     'power': new FormControl(this.hero.power, Validators.required)
         // });
+        const c = this;
+        setTimeout(()=>{
+            c.startValidate = true;
+        }, 100);
     }
 
     ionViewDidLoad() {
@@ -150,10 +169,30 @@ export class VendorRegisterPage {
         }
     }
 
+    fnValidateImg() {
+        let inValid = false;
+        const cardIDNo = this.image_card_no_path;
+        const imgFront = this.image_front_store_path.length;
+        if (!cardIDNo) {
+            this.formErrors.image_card_no_path = this.validationMessages.image_card_no_path.required;
+            inValid = true;
+        } else {
+            this.formErrors.image_card_no_path = '';
+        }
+        if (!imgFront) {
+            this.formErrors.image_front_store_path = this.validationMessages.image_front_store_path.required;
+            inValid = true;
+        } else {
+            this.formErrors.image_front_store_path = '';
+        }
+        return inValid;
+    }
+
     async fnSendData(form: any) {
         this.onValueChanged(form.control.controls);
         console.log(form.control)
-        if (form.invalid) {
+        const invalidImg = this.fnValidateImg();
+        if (form.invalid || invalidImg) {
             this.apiService.showErrorTranslate('PLEASE_CHECK_INPUT');
         } else {
             let data = form.control.value;
@@ -173,7 +212,8 @@ export class VendorRegisterPage {
         console.log('data:', data)
         // const form = this.lang === 'th' ? this.registerData: this.registerDataEN;
         //   console.log('form:', form)
-        if (!data) {
+          console.log('startValidate:', this.startValidate)
+        if (!data || !this.startValidate) {
             return;
         }
         // if (!form) {
@@ -189,11 +229,13 @@ export class VendorRegisterPage {
             // clear previous error message (if any)
             this.formErrors[field] = '';
             const control = data[field];
-            if (control /*&& control.dirty && !control.valid*/) {
+            if (control /*&& form.dirty && !form.valid*/) {
                 const messages = this.validationMessages[field];
+                let err = [];
                 for (const key in control.errors) {
-                    this.formErrors[field] += messages[key] + ' ';
+                    err.push(messages[key]);
                 }
+                this.formErrors[field] = err.join(', ')
             }
         }
     }
@@ -243,6 +285,7 @@ export class VendorRegisterPage {
         const img = this.apiService.fnGetImgUrl(e, this.api.vendor.image.view);
         this.image_card_no_path = img.url;
         this.apiService.showSuccessTranslate('UPLOAD_IMAGE_SUCCESS');
+        this.fnValidateImg();
     }
 
     async uploadFileCertificate(e) {
@@ -265,5 +308,6 @@ export class VendorRegisterPage {
             order: 999,
         });
         this.apiService.showSuccessTranslate('UPLOAD_FILE_SUCCESS');
+        this.fnValidateImg();
     }
 }

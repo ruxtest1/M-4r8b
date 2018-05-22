@@ -1,5 +1,6 @@
 {
   "HOME": "หน้าหลัก",
+  "LANGUAGE": "ภาษา",
   "BACK_BUTTON_TEXT" : "กลับ",
   "NAME": "ชื่อ",
   "EMAIL": "อีเมล์",
@@ -15,6 +16,8 @@
   "UPLOAD_IMAGE_SUCCESS": "อัพโหลดรูปภาพสำเร็จ",
   "UPLOAD_FILE_SUCCESS": "อัพโหลดไฟล์ภาพสำเร็จ",
   "THANK_YOU_FOR_REGISTER": "ขอบคุณที่สมัตรสมาชิกกับเรา",
+  "CHANGE_IMAGE": "เปลี่ยนรูป",
+  "SELECT_FILE_MORE": "เลือกไฟล์เพิ่ม",
 
   "TAB1_TITLE": "รายการ",
   "TAB2_TITLE": "ค้นหา",
@@ -79,7 +82,7 @@
   "CITY": "จังหวัด",
   "CERTIFICATE_DOC": "เอกสาร/หนังสือรับรอง(ถ้ามี)",
   "CARD_ID_IMAGE": "รูปบัตรประชาชน",
-  "FRONT_MARKET_IMAGE": "รูปถ่ายหน้าร้าน(ถ้ามี)",
+  "FRONT_MARKET_IMAGE": "รูปถ่ายหน้าร้าน",
 
   "BRANCH": "สาขา",
   "BANK": "ธนาคาร",

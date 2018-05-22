@@ -5,6 +5,7 @@ import {SharedService} from "../../providers/shared.service";
 import {DEFAULT} from "../../app/app.constant";
 import {ModalFilterPage} from "../modal-filter/modal-filter";
 import {ItemPage} from "../item/item";
+import {HomePage} from "../home/home";
 
 
 /*
@@ -218,6 +219,10 @@ export class SearchResultPage implements OnInit {
 
     fnGoToSearch() {
         // this.navCtrl.push(ProductSearchPage);
+    }
+
+    fnGoToHome() {
+        this.navCtrl.setRoot(HomePage);
     }
 
 }

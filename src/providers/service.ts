@@ -641,7 +641,7 @@ export class Service {
     async fnAddSearchHistory(data: any) {
         let lists = await this.getStorage(this.searchHistoryKey);
         lists = lists ? lists : [];
-        // lists = lists.fiter(val=>val!=data);
+        lists = lists.filter(val=>val!=data);
         lists.unshift(data);
         await this.setStorage(this.searchHistoryKey, lists);
         return lists;

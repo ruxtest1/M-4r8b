@@ -12,8 +12,11 @@
     </button>
     <ion-title>{{ title }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="goToCart()">
-        <ion-icon name="cart"></ion-icon>
+      <button ion-button icon-only (click)="goToSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="goToCart()">
+        &nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="cart"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>

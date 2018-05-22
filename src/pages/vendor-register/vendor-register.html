@@ -71,7 +71,8 @@
             <ion-input type="hidden" [(value)]="image_front_store_path" formControlName="image_front_store_path"></ion-input>
             <ion-item>
                 <div class="dx-field">
-                    <div class="dx-field-label" style="width: 100%;">{{ 'CARD_ID_IMAGE' | translate }}:</div>
+                    <div class="dx-field-label" style="width: 100%;"><i class="font-red">*</i>
+                        {{ 'CARD_ID_IMAGE' | translate }}:</div>
                     <dx-file-uploader
                             #fileUploaderCardNo
                             [uploadUrl]="urlUpload"
@@ -83,10 +84,35 @@
                             (onUploadStarted)="fnDisableBtn($event)"
                             (onUploaded)="fnUploadCardNo($event)"
                             (onUploadedError)=uploadImgError($event)
-                            selectButtonText="{{'SELECT_IMAGE'|translate}}">
+                            selectButtonText="{{image_card_no_path?('CHANGE_IMAGE'|translate) :('SELECT_IMAGE'|translate)}}">
                     </dx-file-uploader>
                 </div>
             </ion-item>
+            <div *ngIf="formErrors.image_card_no_path" class="font-red">
+                {{ formErrors.image_card_no_path }}
+            </div>
+            <ion-item>
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;"><i class="font-red">*</i>
+                        {{ 'FRONT_MARKET_IMAGE' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderFrontMarket
+                            [uploadUrl]="urlUploadFile"
+                            uploadMethod="POST"
+                            [multiple]="true"
+                            accept="image/*"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="uploadFileFrontStore($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{image_front_store_path.length?('SELECT_FILE_MORE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+            <div *ngIf="formErrors.image_front_store_path" class="font-red">
+                {{ formErrors.image_front_store_path }}
+            </div>
             <ion-item>
                 <div class="dx-field">
                     <div class="dx-field-label" style="width: 100%;">{{ 'CERTIFICATE_DOC' | translate }}:</div>
@@ -101,25 +127,7 @@
                             (onUploadStarted)="fnDisableBtn($event)"
                             (onUploaded)="uploadFileCertificate($event)"
                             (onUploadedError)=uploadImgError($event)
-                            selectButtonText="{{'SELECT_FILE'|translate}}">
-                    </dx-file-uploader>
-                </div>
-            </ion-item>
-            <ion-item>
-                <div class="dx-field">
-                    <div class="dx-field-label" style="width: 100%;">{{ 'FRONT_MARKET_IMAGE' | translate }}:</div>
-                    <dx-file-uploader
-                            #fileUploaderFrontMarket
-                            [uploadUrl]="urlUploadFile"
-                            uploadMethod="POST"
-                            [multiple]="true"
-                            accept="image/*"
-                            uploadMode="instantly"
-                            labelText=""
-                            (onUploadStarted)="fnDisableBtn($event)"
-                            (onUploaded)="uploadFileFrontStore($event)"
-                            (onUploadedError)=uploadImgError($event)
-                            selectButtonText="{{'SELECT_FILE'|translate}}">
+                            selectButtonText="{{file_certificate.length?('SELECT_FILE_MORE'|translate) :('SELECT_IMAGE'|translate)}}">
                     </dx-file-uploader>
                 </div>
             </ion-item>
