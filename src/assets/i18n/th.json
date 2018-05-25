@@ -1,6 +1,7 @@
 {
   "HOME": "หน้าหลัก",
   "LANGUAGE": "ภาษา",
+  "CHANGE_LANG_SUCCESS": "เปลี่ยนภาษาสำเร็จแล้ว",
   "BACK_BUTTON_TEXT" : "กลับ",
   "NAME": "ชื่อ",
   "EMAIL": "อีเมล์",

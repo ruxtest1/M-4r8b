@@ -60,7 +60,8 @@ export class MyApp {
                 icon: 'ios-home-outline',
                 count: 0,
                 component: HomePage,
-                set_root: true
+                set_root: true,
+                msg: ''
             },
 
             {
@@ -68,7 +69,8 @@ export class MyApp {
                 icon: 'ios-list-box-outline',
                 count: 0,
                 component: CategoriesPage,
-                set_root: false
+                set_root: false,
+                msg: ''
             },
 
             // {
@@ -104,7 +106,8 @@ export class MyApp {
                 icon: 'ios-settings-outline',
                 count: 0,
                 component: SettingsPage,
-                set_root: false
+                set_root: false,
+                msg: this.service.lang ==='th'? "TH":"EN"
             },
 
             // {

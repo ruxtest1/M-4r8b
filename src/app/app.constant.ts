@@ -1,10 +1,16 @@
 export const DEFAULT = {
     "config": {
         "debug": false,
-        "protocol": "http://",
-        "host": "ruxnutt.thddns.net",
+        // "protocol": "http://",
         // "host": "localhost",
-        "port": 4942,
+        // "port": 4942,
+        // "protocol": "http://",
+        // "host": "ruxnutt.thddns.net",
+        // "host": "localhost",
+        // "port": 4942,
+        'protocol': 'https://',
+        'host': 'marukyo-api.appspot.com',
+        'port': '',
         "checkAuthen": "/current",
         "loginPage": "login",
         "cookie_name": {

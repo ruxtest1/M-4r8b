@@ -14,6 +14,7 @@
         <ion-icon item-left name="{{ page.icon }}"></ion-icon>
         {{ page.title | translate}}
         <ion-badge color="danger" item-right *ngIf="page.count">{{ page.count }}</ion-badge>
+        <!--<ion-badge color="danger" item-right *ngIf="page.msg">{{ page.msg }}</ion-badge>-->
       </button>
     </ion-list>
   </ion-content>

@@ -143,11 +143,11 @@
         <!--</ion-col>-->
         <!--</ion-row>-->
     </form>
-    <form #form="ngForm" *ngIf="lang!='th'" [formGroup]="registerDataEN" (ngSubmit)="fnSendData(form)" novalidate>
+    <form #form="ngForm" *ngIf="lang!='th'" [formGroup]="registerDataEN" (ngSubmit)="fnSendData(form)">
         <ion-list class="list-form">
             <ion-item>
                 <ion-label stacked>{{ 'COMPANY_NAME' | translate }}:</ion-label>
-                <ion-input formControlName="company_name_en"></ion-input>
+                <ion-input type="text" formControlName="company_name_en"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label stacked><i class="font-red">*</i>
@@ -155,8 +155,8 @@
                 </ion-label>
                 <ion-input type="text" formControlName="name_en"></ion-input>
             </ion-item>
-            <div *ngIf="formErrors.name" class="font-red">
-                {{ formErrors.name }}
+            <div *ngIf="formErrors.name_en" class="font-red">
+                {{ formErrors.name_en }}
             </div>
             <ion-item>
                 <ion-label stacked><i class="font-red">*</i>
@@ -164,8 +164,13 @@
                 </ion-label>
                 <ion-input type="text" formControlName="phone"></ion-input>
             </ion-item>
+            <div *ngIf="formErrors.phone" class="font-red">
+                {{ formErrors.phone }}
+            </div>
             <ion-item>
-                <ion-label stacked>{{ 'EMAIL' | translate }}:</ion-label>
+                <ion-label stacked><i class="font-red">*</i>
+                    {{ 'EMAIL' | translate }}:
+                </ion-label>
                 <ion-input type="text" formControlName="email"></ion-input>
             </ion-item>
             <div *ngIf="formErrors.email" class="font-red">
@@ -183,8 +188,77 @@
                 <ion-label stacked>{{ 'CITY' | translate }}:</ion-label>
                 <ion-input formControlName="city_en"></ion-input>
             </ion-item>
-        </ion-list>
+            <!--<ion-item>-->
+            <!--<ion-label>{{ 'CERTIFICATE_DOC' | translate }}:</ion-label>-->
+            <!--<ion-input type="hidden" [(value)]="file_certificate" formControlName="file_certificate"></ion-input>-->
+            <!--</ion-item>-->
 
+            <ion-input type="hidden" [(value)]="file_certificate" formControlName="file_certificate"></ion-input>
+            <ion-input type="hidden" [(value)]="image_card_no_path" formControlName="image_card_no_path"></ion-input>
+            <ion-input type="hidden" [(value)]="image_front_store_path" formControlName="image_front_store_path"></ion-input>
+            <ion-item>
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;"><i class="font-red">*</i>
+                        {{ 'CARD_ID_IMAGE' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderCardNo
+                            [uploadUrl]="urlUpload"
+                            uploadMethod="POST"
+                            [multiple]="false"
+                            accept="image/*"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="fnUploadCardNo($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{image_card_no_path?('CHANGE_IMAGE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+            <div *ngIf="formErrors.image_card_no_path" class="font-red">
+                {{ formErrors.image_card_no_path }}
+            </div>
+            <ion-item>
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;"><i class="font-red">*</i>
+                        {{ 'FRONT_MARKET_IMAGE' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderFrontMarket
+                            [uploadUrl]="urlUploadFile"
+                            uploadMethod="POST"
+                            [multiple]="true"
+                            accept="image/*"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="uploadFileFrontStore($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{image_front_store_path.length?('SELECT_FILE_MORE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+            <div *ngIf="formErrors.image_front_store_path" class="font-red">
+                {{ formErrors.image_front_store_path }}
+            </div>
+            <ion-item>
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;">{{ 'CERTIFICATE_DOC' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderCertificateFile
+                            [uploadUrl]="urlUploadFile"
+                            uploadMethod="POST"
+                            [multiple]="true"
+                            accept="image/*, application/pdf, application/vnd.ms-excel"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="uploadFileCertificate($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{file_certificate.length?('SELECT_FILE_MORE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+        </ion-list>
         <button ion-button color="primary" block type="submit">{{ 'SEND' | translate }}</button>
         <!--<ion-row>-->
         <!--<ion-col col-6>-->

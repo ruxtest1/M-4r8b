@@ -90,6 +90,9 @@ export class ItemPage implements OnInit {
     async fnGetProduct() {
         try {
             this.productData = await this.sv.get(this.api.product.view_buy, {id: this.product_id});
+            if (this.productData.image_gallery_path === null) {
+                this.productData.image_gallery_path = [];
+            }
             // let newArrImg = [];
             if (!this.productData.image_gallery_path.length) {
                 this.productData.image_gallery_path.push({
@@ -175,7 +178,7 @@ export class ItemPage implements OnInit {
     fnShowModalImg(idx: any) {
         let gallery = [];
         this.productData.image_gallery_path.forEach((val) => {
-            gallery.push({url: this.sv.fnBuildImgUrl(val.path)});
+            gallery.push({url: this.sv.fnBuildImg(val, 'path', true)});
         });
         let modal = this.modalCtrl.create(GalleryModal, {
             photos: gallery,

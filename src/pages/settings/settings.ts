@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {Service} from "../../providers/service";
 import {SharedService} from "../../providers/shared.service";
 import {TranslateService} from "@ngx-translate/core";
+import {HomePage} from "../home/home";
 
 
 /*
@@ -35,5 +36,10 @@ export class SettingsPage {
         this.shareService.lang = setLang;
         this.translate.use(setLang);
         await this.apiService.setStorage(this.apiService.langKey, setLang);
+        const t = this;
+        setTimeout(()=>{
+            t.apiService.showSuccessTranslate('CHANGE_LANG_SUCCESS')
+            t.nav.setRoot(HomePage);
+        }, 200)
     }
 }

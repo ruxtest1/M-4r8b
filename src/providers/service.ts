@@ -241,12 +241,30 @@ export class Service {
             (this.checkData(objQuery) ? '?' + $.param(objQuery) : '');
     }
 
-    fnBuildImg(data: object, name: string) {
+    fnGetPathImgThumb (path:any) {
+        const parts = path.split('.'),
+            extension = parts[parts.length - 1];
+        const origName = parts[parts.length - 2];
+        return origName + '-thumbnail.' + extension;
+    };
+
+    fnBuildImg(data: object, name: string, full?:any) {
         let path = data[name];
-        if (this.checkData(data[name + '_thumbnail'])) {
-            path = data[name + '_thumbnail'];
+        // if (this.checkData(data[name + '_thumbnail'])) {
+        //     path = data[name + '_thumbnail'];
+        // }
+        // return this.fnBuildImgUrl(path);
+
+        if (path) {
+            const gUrl = 'https://storage.googleapis.com/marukyo-api/';
+            let url = path.replace(gUrl, '');
+            if (full !== true) {
+                url = this.fnGetPathImgThumb(url);
+            }
+            return gUrl + url;
+        } else {
+            return 'assets/img/icon-no-image.png';
         }
-        return this.fnBuildImgUrl(path);
     }
 
     fnBuildImgUrl(path) {
