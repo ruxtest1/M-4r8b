@@ -1,13 +1,13 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {
-    GoogleMaps,
+    // GoogleMaps,
     GoogleMap,
-    GoogleMapsEvent,
-    GoogleMapOptions,
-    CameraPosition,
-    MarkerOptions,
-    Marker
+    // GoogleMapsEvent,
+    // GoogleMapOptions,
+    // CameraPosition,
+    // MarkerOptions,
+    // Marker
 } from '@ionic-native/google-maps';
 import {SharedService} from "../../providers/shared.service";
 import {Service} from "../../providers/service";
@@ -38,7 +38,8 @@ export class MapDetailPage {
                 public navParams: NavParams,
                 public shareService: SharedService,
                 public apiService: Service,
-                private googleMaps: GoogleMaps) {
+                // private googleMaps: GoogleMaps
+    ) {
         this.title = this.shareService.lang == 'th' ? this.navParams.get('title_th'):this.navParams.get('title_en');
         this.url = this.navParams.get('url');
         this.lat = +this.navParams.get('lat');

@@ -24,7 +24,7 @@
         <ion-grid>
           <ion-row >
             <ion-col col-3>
-              <img [src]="apiService.fnBuildImg(bank, 'image_path')" style="width: 98%;margin-left: -10px">
+              <img [src]="apiService.fnBuildImgUrl(bank.image_path)" style="width: 98%;margin-left: -10px">
             </ion-col>
             <ion-col col-9>
               <h2 class="font-blue"><b>{{apiService.fnLang(bank, 'bank_account_name')}}</b></h2>

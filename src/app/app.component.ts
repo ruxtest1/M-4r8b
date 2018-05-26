@@ -11,14 +11,14 @@ import {Service} from "../providers/service";
 
 // import pages
 import {HomePage} from '../pages/home/home';
-import {LoginPage} from '../pages/login/login';
-import {WelcomePage} from '../pages/welcome/welcome';
-import {MyAccountPage} from '../pages/my-account/my-account';
-import {CartPage} from '../pages/cart/cart';
+// import {LoginPage} from '../pages/login/login';
+// import {WelcomePage} from '../pages/welcome/welcome';
+// import {MyAccountPage} from '../pages/my-account/my-account';
+// import {CartPage} from '../pages/cart/cart';
 import {SettingsPage} from '../pages/settings/settings';
 import {CategoriesPage} from '../pages/categories/categories';
-import {WishListPage} from '../pages/wish-list/wish-list';
-import {MyOrderPage} from '../pages/my-order/my-order';
+// import {WishListPage} from '../pages/wish-list/wish-list';
+// import {MyOrderPage} from '../pages/my-order/my-order';
 
 // end import pages
 

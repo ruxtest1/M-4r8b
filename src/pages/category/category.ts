@@ -3,7 +3,7 @@ import {NavController, NavParams, ActionSheetController, ModalController} from '
 
 import {ItemService} from '../../services/item-service';
 import {CategoryService} from '../../services/category-service';
-import {ModalFilterPage} from "../modal-filter/modal-filter";
+// import {ModalFilterPage} from "../modal-filter/modal-filter";
 import {ItemPage} from "../item/item";
 import {CartPage} from "../cart/cart";
 import {Service} from "../../providers/service";
