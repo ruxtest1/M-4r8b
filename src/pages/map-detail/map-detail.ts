@@ -68,7 +68,7 @@ export class MapDetailPage {
             position: {lat: c.lat, lng: c.lng},
             map: c.map,
             animation: 'DROP',
-            icon: 'assets/icon/gmap-place-50x75.png'
+            icon: 'assets/ico/gmap-place-50x75.png'
         });
         beachMarker.addListener('click', function() {
 
