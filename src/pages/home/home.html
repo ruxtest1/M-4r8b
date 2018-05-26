@@ -124,8 +124,8 @@
     <ion-grid class="list-cards">
         <ion-row>
             <ion-col *ngFor="let item of list_product" col-6 class="product" (click)="viewItem(item.id)">
-                <div class="card light-bg">
-                    <img style="width: 100%;" src="{{ sv.fnBuildImg(item, 'logo_path') }}" alt="{{sv.fnLang(item, 'name')}}">
+                <div class="card light-bg" style="width: 100%;height: 100%" >
+                    <img style="width: 100%;height: 80%" src="{{ sv.fnBuildImg(item, 'logo_path') }}" alt="{{sv.fnLang(item, 'name')}}">
                     <div class="price" text-center>{{item.sale_price?item.sale_price:item.price| currency:'฿':true }}</div>
                 </div>
             </ion-col>

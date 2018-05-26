@@ -134,7 +134,7 @@ export class VendorRegisterPage {
                 'image_card_no_path': [''],
                 'image_front_store_path': [''],
             });
-            this.registerDataEN.valueChanges.subscribe(data => this.onValueChanged(this.registerData.controls));
+            this.registerDataEN.valueChanges.subscribe(data => this.onValueChanged(this.registerDataEN.controls));
             // this.onValueChanged();
         }
         // this.registerData = new FormGroup({

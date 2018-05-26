@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Nav, Platform, Config} from 'ionic-angular';
+import {Nav, Platform, Config, ToastController} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -34,6 +34,7 @@ export class MyApp {
     // public nav: any;
 
     public pages = [];
+    public counter = 0;
 
     constructor(private translate: TranslateService,
                 public platform: Platform,
@@ -42,6 +43,7 @@ export class MyApp {
                 public apiService: Service,
                 public splashScreen: SplashScreen,
                 public service: SharedService,
+                public toastCtrl: ToastController,
                 public screenOrientation: ScreenOrientation) {
 
         this.service.setCallbackShowLoading(this.fnShowLoading.bind(this));
@@ -107,7 +109,7 @@ export class MyApp {
                 count: 0,
                 component: SettingsPage,
                 set_root: false,
-                msg: this.service.lang ==='th'? "TH":"EN"
+                msg: this.service.lang === 'th' ? "TH" : "EN"
             },
 
             // {
@@ -132,6 +134,18 @@ export class MyApp {
             } else {// run on web
 
             }
+            this.platform.registerBackButtonAction(() => {
+                if (this.counter == 0) {
+                    this.counter++;
+                    this.presentToast();
+                    setTimeout(() => {
+                        this.counter = 0
+                    }, 3000)
+                } else {
+                    // console.log("exitapp");
+                    this.platform.exitApp();
+                }
+            }, 0)
         });
     }
 
@@ -164,7 +178,7 @@ export class MyApp {
     openPage(page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        if (page.set_root){
+        if (page.set_root) {
             this.nav.setRoot(page.component);
         } else {
             this.nav.push(page.component);
@@ -177,6 +191,17 @@ export class MyApp {
 
     public fnHideLoading() {
         this.loadingVisible = false;
+    }
+
+    presentToast() {
+        this.apiService.fnGetTranslate('CONFIRM_TO_EXIT').then((msg:any)=>{
+            let toast = this.toastCtrl.create({
+                message: msg,
+                duration: 3000,
+                position: "middle"
+            });
+            toast.present();
+        });
     }
 }
 
