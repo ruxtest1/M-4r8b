@@ -63,6 +63,12 @@
       </div>
     </ion-item>
   </ion-list>
+  <div *ngIf="!isProductNotFound">
+    <div class="alert alert-info center" [hidden]="!isMax">{{ 'PRODUCT_FOUND'| translate:{value: countProduct} }}</div>
+  </div>
+  <div *ngIf="!hideMsg">
+    <div class="alert alert-warning" [hidden]="!isProductNotFound">{{'PRODUCT_NOT_FOUND' | translate}} </div>
+  </div>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content
             loadingSpinner="bubbles"

@@ -25,8 +25,10 @@ import {SearchPage} from "../search/search";
 export class CategoryProductPage implements OnInit {
     api = DEFAULT.config;
     public list_product;
+    public temp_list_product;
     public countProduct = 0;
     isProductNotFound = true;
+    hideMsg = true;
     lang = 'th';
     urlUpload;
     userData;
@@ -35,6 +37,7 @@ export class CategoryProductPage implements OnInit {
     page = 0;
     limit = 10;
     public isMax = false;
+    public isGetList = false;
     public scrollAmount = 0;
     timeScroll = null;
     // sort by
@@ -62,44 +65,51 @@ export class CategoryProductPage implements OnInit {
     }
 
     async fnGetCatGroup() {
-        this.list_product = await this.fnGetList(this.page, this.limit);
-        this.isProductNotFound = this.list_product.length ? false : true;
+        let data = await this.fnGetList(this.page, this.limit);
+        this.list_product = data.rows;
         this.countProduct = this.list_product.length;
         console.log(this.countProduct)
-        if (this.countProduct < this.limit) {
+        if (this.countProduct > 0 && this.countProduct < this.limit) {
+            this.isProductNotFound = false;
             this.isMax = true;
+        } else if (this.countProduct > 0) {
+            this.isProductNotFound = false;
+            this.temp_list_product = await this.fnGetList(this.page + 1, this.limit);
         }
+        this.hideMsg = false;
+        console.log('isProductNotFound:', this.isProductNotFound)
+        console.log('countProduct:', this.countProduct)
+        console.log('hideMsg:', this.hideMsg)
     }
 
     async fnGetList(page, limit) {
         try {
-            return this.apiService.get(this.api.category.getProduct, {
-                id: this.sub_id,
-                limit: limit,
-                page: page
-            }, false);
+            const filter = {id: this.sub_id, search: '', take: limit, skip: page * limit};
+            return this.apiService.get(this.api.category.getProduct, filter, false);
         } catch (err) {
             return false;
         }
     }
 
     async doInfinite(infiniteScroll) {
-        if (!this.isMax) {
+        if (!this.isMax && !this.isGetList) {
+            this.isGetList = true;
             this.page++;
-            let newItems = await this.fnGetList(this.page, this.limit);
+            let newItems = this.temp_list_product;
+            console.log('newItems', newItems);
             if (newItems != false) {
-                this.isMax = newItems.length > 0 ? false : true;
-                this.isProductNotFound = newItems.length ? false : true;
-            }
-            setTimeout(() => {
-                if (newItems != false) {
-                    for (let i in newItems) {
-                        this.list_product.push(newItems[i]);
-                    }
-                    this.countProduct = this.list_product.length;
+                this.isMax = newItems.rows.length > 0 ? false : true;
+                // this.isProductNotFound = newItems.length ? false : true;
+                for (let i in newItems.rows) {
+                    this.list_product.push(newItems.rows[i]);
                 }
-                infiniteScroll.complete();
-            }, 500);
+            }
+            this.countProduct = this.list_product.length;
+            infiniteScroll.complete();
+            this.isGetList = false;
+            if (!this.isMax) {
+                this.temp_list_product = await this.fnGetList(this.page + 1, this.limit);
+            }
         } else {
             infiniteScroll.complete();
         }

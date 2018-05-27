@@ -13,7 +13,7 @@
       <button ion-button icon-only (click)="fnGoToHome()">
         <ion-icon name="home"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="fnGOToCart()">
+      <button ion-button icon-only *ngIf="shareService.open_add_cart" (click)="fnGOToCart()">
         &nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="ios-cart"></ion-icon>
         <span class="badge"> {{ shareService.count_product }} </span>
       </button>
@@ -63,6 +63,12 @@
       </div>
     </ion-item>
   </ion-list>
+  <div *ngIf="!isProductNotFound">
+    <div class="alert alert-info center" [hidden]="!isMax">{{ 'PRODUCT_FOUND'| translate:{value: countProduct} }}</div>
+  </div>
+  <div *ngIf="!hideMsg">
+    <div class="alert alert-warning" [hidden]="!isProductNotFound">{{'PRODUCT_NOT_FOUND' | translate}} </div>
+  </div>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content
             loadingSpinner="bubbles"

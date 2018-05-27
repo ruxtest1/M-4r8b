@@ -45,9 +45,12 @@ export class HomePage implements OnInit {
     public items: any;
 
     public list_product;
+    public temp_list_product;
+    public countProduct = 1;
     timeSearch = null;
     scrollAmount = 0;
     isMax = false;
+    isGetList = false;
     isProductNotFound = true;
     hideMsg = true;
     limit = 10;
@@ -66,7 +69,7 @@ export class HomePage implements OnInit {
                 public itemService: ItemService) {
         this.categories = categoryService.getAll();
 
-        this.items = itemService.getAll();
+        // this.items = itemService.getAll();
     }
 
     ionViewDidLoad() {
@@ -120,8 +123,17 @@ export class HomePage implements OnInit {
         // this.userData = await this.sv.getUserData();
         // this.lang = this.shareService.lang;
         // this.product_id = this.navParams.get('id');
-        const products = await this.fnGetList(1, this.limit)
+        const products = await this.fnGetList(this.page, this.limit);
         this.list_product = products.rows;
+        this.countProduct = this.list_product.length;
+        if (this.countProduct > 0 && this.countProduct < this.limit) {
+            this.isProductNotFound = false;
+            this.isMax = true;
+        } else if (this.countProduct) {
+            this.isProductNotFound = true;
+            this.temp_list_product = await this.fnGetList(this.page+1, this.limit);
+        }
+        this.hideMsg = false;
     }
 
     // view categories
@@ -170,21 +182,24 @@ export class HomePage implements OnInit {
     }
 
     async doInfinite(infiniteScroll) {
-        if (!this.isMax) {
+        if (!this.isMax && !this.isGetList) {
+            this.isGetList = true;
             this.page++;
-            let newItems = await this.fnGetList(this.page, this.limit);
+            let newItems = this.temp_list_product;
             if (newItems != false) {
                 this.isMax = newItems.rows.length > 0 ? false : true;
-                this.isProductNotFound = newItems.totalCount > 0 ? false : true;
-            }
-            setTimeout(() => {
-                if (newItems != false) {
-                    for (let i in newItems.rows) {
-                        this.list_product.push(newItems.rows[i]);
-                    }
+                // this.isProductNotFound = newItems.totalCount > 0 ? false : true;
+                for (let i in newItems.rows) {
+                    this.list_product.push(newItems.rows[i]);
                 }
-                infiniteScroll.complete();
-            }, 500);
+            }
+            this.countProduct = this.list_product.length;
+
+            infiniteScroll.complete();
+            this.isGetList = false;
+            if (!this.isMax) {
+                this.temp_list_product = await this.fnGetList(this.page + 1, this.limit);
+            }
         } else {
             infiniteScroll.complete();
         }

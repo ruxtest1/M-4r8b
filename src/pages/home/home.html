@@ -18,7 +18,7 @@
             <!--<button ion-button icon-only >-->
                 <!--<ion-icon name="qr-scanner"></ion-icon>-->
             <!--</button>-->
-            <button ion-button icon-only (click)="goToCart()">
+            <button *ngIf="shareService.open_add_cart" ion-button icon-only (click)="goToCart()">
                 <ion-icon name="cart"></ion-icon>
             </button>
         </ion-buttons>
@@ -131,6 +131,12 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    <div *ngIf="!isProductNotFound">
+        <div class="alert alert-info center" [hidden]="!isMax">{{ 'PRODUCT_FOUND'| translate:{value: countProduct} }}</div>
+    </div>
+    <div *ngIf="!hideMsg">
+        <div class="alert alert-warning" [hidden]="!isProductNotFound">{{'PRODUCT_NOT_FOUND' | translate}} </div>
+    </div>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"

@@ -284,3 +284,48 @@ ion-slides[pager] {
 .font-bold {
   font-weight: bold !important;
 }
+
+
+/***
+Customized Bootstrap Alerts
+***/
+.alert {
+  border-width: 1px; }
+.alert > p {
+  margin: 0; }
+.alert.alert-borderless {
+  border: 0; }
+.alert{padding:15px;border:1px solid transparent;border-radius:4px}
+.alert {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border-width: 0; }
+.alert-warning {
+  background-color: #f9e491;
+  border-color: #f9e491;
+  color: #c29d0b; }
+.alert-warning hr {
+  border-top-color: #f7de79; }
+.alert-warning .alert-link {
+  color: #927608; }
+
+.alert-info {
+  background-color: #e0ebf9;
+  border-color: #e0ebf9;
+  color: #327ad5; }
+.alert-info hr {
+  border-top-color: #caddf4; }
+.alert-info .alert-link {
+  color: #2462b0; }
+
+.alert-danger {
+  background-color: #fbe1e3;
+  border-color: #fbe1e3;
+  color: #e73d4a; }
+.alert-danger hr {
+  border-top-color: #f8cace; }
+.alert-danger .alert-link {
+  color: #d71b29; }
