@@ -22,7 +22,7 @@
     <ion-item-sliding #item *ngFor="let bank of banks">
       <ion-item>
         <ion-grid>
-          <ion-row >
+          <ion-row (click)="fnCopy(bank.bank_account_number)">
             <ion-col col-3>
               <img [src]="apiService.fnBuildImgUrl(bank.image_path)" style="width: 98%;margin-left: -10px">
             </ion-col>

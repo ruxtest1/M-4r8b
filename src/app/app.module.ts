@@ -29,6 +29,9 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import {DxFileUploaderModule} from 'devextreme-angular/ui/file-uploader';
 import {DxSwitchModule} from 'devextreme-angular/ui/switch';
+import {DxNumberBoxModule} from 'devextreme-angular/ui/number-box';
+import {DxValidationGroupModule} from 'devextreme-angular/ui/validation-group';
+import {DxPopupModule} from 'devextreme-angular/ui/popup';
 // end import services
 // end import services
 
@@ -113,6 +116,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpModule,
         DxFileUploaderModule,
         DxSwitchModule,
+        DxNumberBoxModule,
+        DxValidationGroupModule,
+        DxPopupModule,
         ionicGalleryModal.GalleryModalModule,
         TranslateModule.forRoot({
             loader: {

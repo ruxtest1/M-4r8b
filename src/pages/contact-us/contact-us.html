@@ -6,109 +6,130 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>{{ 'CONTACT_US' | translate }}</ion-title>
+    <ion-navbar color="primary">
+        <ion-title>{{ 'CONTACT_US' | translate }}</ion-title>
 
-    <ion-buttons end>
-    </ion-buttons>
-  </ion-navbar>
+        <ion-buttons end>
+        </ion-buttons>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-list>
+        <!--<ion-item-sliding #item>-->
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3>
+                        <img src="assets/ico/icon-phone.png" style="width: 98%;margin-left: -10px">
+                    </ion-col>
+                    <ion-col col-9 (click)="openPopupPhone=true;">
+                        <h2 class="font-red font-bold">{{'PHONE'|translate}}</h2>
+                        <span class="font-blue">02-803-7406</span><br/>
+                        <span class="font-blue">081-825-4835</span>
 
-  <ion-list>
-    <ion-item-sliding #item>
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <img src="assets/ico/icon-phone.png" style="width: 98%;margin-left: -10px">
-            </ion-col>
-            <ion-col col-9>
-              <h2 class="font-blue font-bold">{{'PHONE'|translate}}</h2>
-              <span>028-035653</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" (click)="fnCopy('028-035653')">{{'COPY'| translate}}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding #item>
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <img src="assets/ico/email-icon.png" style="width: 98%;margin-left: -10px">
-            </ion-col>
-            <ion-col col-9>
-              <h2 class="font-blue font-bold">{{'EMAIL'|translate}}</h2>
-              <span>marukyo@gmail.com</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" (click)="fnGoWeb('mailto:marukyo@gmail.com')">{{'SEND_EMAIL'| translate}}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding #item>
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <img src="assets/ico/icon-line2.png" style="width: 98%;margin-left: -10px">
-            </ion-col>
-            <ion-col col-9>
-              <h2 class="font-blue font-bold">{{'LINE'|translate}}</h2>
-              <span>@marukyo</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" (click)="fnGoWeb('https://line.me/R/ti/p/%40marukyo')">{{'GO_WEB_SITE'| translate}}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding #item>
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <img src="assets/ico/Facebook-Icon.png" style="width: 98%;margin-left: -10px">
-            </ion-col>
-            <ion-col col-9>
-              <h2 class="font-blue font-bold">Facebook</h2>
-              <span>www.facebook.com/marukyo</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" (click)="fnGoWeb('https://www.facebook.com/marukyo')">{{'GO_WEB_SITE'| translate}}
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding #item>
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <img src="assets/ico/icon-wetsite.ico" style="width: 98%;margin-left: -10px">
-            </ion-col>
-            <ion-col col-9>
-              <h2 class="font-blue font-bold">{{'WEB_SITE'|translate}}</h2>
-              <span>http://www.marukyo.co.th</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" (click)="fnGoWeb('http://www.marukyo.co.th')">{{'GO_WEB_SITE'| translate}}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <!--<ion-item-options side="right">-->
+        <!--<button ion-button color="primary" (click)="fnCopy('02-803-7406')">{{'COPY'| translate}}</button>-->
+        <!--</ion-item-options>-->
+        <!--</ion-item-sliding>-->
+        <!--<ion-item-sliding #item>-->
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3>
+                        <img src="assets/ico/email-icon.png" style="width: 98%;margin-left: -10px">
+                    </ion-col>
+                    <ion-col col-9 (click)="fnGoWeb('mailto:marukyo@gmail.com')">
+                        <h2 class="font-red font-bold">{{'EMAIL'|translate}}</h2>
+                        <span class="font-blue">marukyo@gmail.com</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <!--<ion-item-options side="right">-->
+        <!--<button ion-button color="primary" (click)="fnGoWeb('mailto:marukyo@gmail.com')">{{'SEND_EMAIL'| translate}}</button>-->
+        <!--</ion-item-options>-->
+        <!--</ion-item-sliding>-->
+        <!--<ion-item-sliding #item>-->
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3>
+                        <img src="assets/ico/icon-line2.png" style="width: 98%;margin-left: -10px">
+                    </ion-col>
+                    <ion-col col-9 (click)="fnGoWeb('https://line.me/R/ti/p/%40marukyo')">
+                        <h2 class="font-red font-bold">{{'LINE'|translate}}</h2>
+                        <span class="font-blue">@marukyo</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <!--<ion-item-options side="right">-->
+        <!--<button ion-button color="primary" (click)="fnGoWeb('https://line.me/R/ti/p/%40marukyo')">{{'GO_WEB_SITE'| translate}}</button>-->
+        <!--</ion-item-options>-->
+        <!--</ion-item-sliding>-->
+        <!--<ion-item-sliding #item>-->
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3>
+                        <img src="assets/ico/Facebook-Icon.png" style="width: 98%;margin-left: -10px">
+                    </ion-col>
+                    <ion-col col-9 (click)="fnGoWeb('https://www.facebook.com/marukyo')">
+                        <h2 class="font-red font-bold">Facebook</h2>
+                        <span class="font-blue">www.facebook.com/marukyo</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <!--<ion-item-options side="right">-->
+        <!--<button ion-button color="primary" (click)="fnGoWeb('https://www.facebook.com/marukyo')">{{'GO_WEB_SITE'| translate}}-->
+        <!--</button>-->
+        <!--</ion-item-options>-->
+        <!--</ion-item-sliding>-->
+        <!--<ion-item-sliding #item>-->
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3>
+                        <img src="assets/ico/icon-wetsite.ico" style="width: 98%;margin-left: -10px">
+                    </ion-col>
+                    <ion-col col-9 (click)="fnGoWeb('http://www.marukyo.co.th')">
+                        <h2 class="font-red font-bold">{{'WEB_SITE'|translate}}</h2>
+                        <span class="font-blue">http://www.marukyo.co.th</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <!--<ion-item-options side="right">-->
+        <!--<button ion-button color="primary" (click)="fnGoWeb('http://www.marukyo.co.th')">{{'GO_WEB_SITE'| translate}}</button>-->
+        <!--</ion-item-options>-->
+        <!--</ion-item-sliding>-->
+    </ion-list>
+    <dx-popup
+            class="popup"
+            width="90%"
+            height="200"
+            [showTitle]="true"
+            title="{{'PHONE' | translate}}"
+            [dragEnabled]="false"
+            [closeOnOutsideClick]="true"
+            [showCloseButton]="true"
+            [(visible)]="openPopupPhone">
+        <div *dxTemplate="let data of 'content'">
+            <ion-list>
+                <!--<ion-list-header>Ionic</ion-list-header>-->
+                <button class="font-blue" ion-item (click)="fnCall('02-803-7406')">
+                    <ion-icon ios="ios-call" md="md-call"></ion-icon> 02-803-7406</button>
+                <button class="font-blue" ion-item (click)="fnCall('081-825-4835')">
+                    <ion-icon ios="ios-call" md="md-call"></ion-icon> 081-825-4835</button>
+            </ion-list>
+        </div>
+    </dx-popup>
 </ion-content>

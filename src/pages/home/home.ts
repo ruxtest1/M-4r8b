@@ -1,5 +1,5 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Platform, ToastController} from 'ionic-angular';
 import {CategoryService} from '../../services/category-service';
 import {ItemService} from '../../services/item-service';
 import {CategoriesPage} from "../categories/categories";
@@ -52,16 +52,68 @@ export class HomePage implements OnInit {
     hideMsg = true;
     limit = 10;
     page = 0;
+    counter = 0;
+    // Property used to store the callback of the event handler to unsubscribe to it when leaving this page
+    public unregisterBackButtonAction: any;
 
     constructor(public nav: NavController,
                 public categoryService: CategoryService,
                 public zone: NgZone,
+                public platform: Platform,
                 public sv: Service,
                 public shareService: SharedService,
+                public toastCtrl: ToastController,
                 public itemService: ItemService) {
         this.categories = categoryService.getAll();
 
         this.items = itemService.getAll();
+    }
+
+    ionViewDidLoad() {
+    }
+
+    ionViewDidEnter() {
+        this.initializeBackButtonCustomHandler();
+    }
+
+    ionViewWillLeave() {
+        // Unregister the custom back button action for this page
+        this.unregisterBackButtonAction && this.unregisterBackButtonAction();
+    }
+
+    public initializeBackButtonCustomHandler(): void {
+        this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+            this.customHandleBackButton();
+        }, 10);
+    }
+
+    private customHandleBackButton(): void {
+        let view = this.nav.getActive();
+        if (view.instance instanceof HomePage) {
+            if (this.counter == 0) {
+                this.counter++;
+                this.presentToast();
+                setTimeout(() => {
+                    this.counter = 0
+                }, 2000)
+            } else {
+                // console.log("exitapp");
+                this.platform.exitApp();
+            }
+        } else {
+            this.nav.pop();
+        }
+    }
+
+    presentToast() {
+        this.sv.fnGetTranslate('CONFIRM_TO_EXIT').then((msg: any) => {
+            let toast = this.toastCtrl.create({
+                message: msg,
+                duration: 3000,
+                position: "bottom"
+            });
+            toast.present();
+        });
     }
 
     async ngOnInit() {

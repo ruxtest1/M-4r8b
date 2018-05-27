@@ -134,18 +134,18 @@ export class MyApp {
             } else {// run on web
 
             }
-            this.platform.registerBackButtonAction(() => {
-                if (this.counter == 0) {
-                    this.counter++;
-                    this.presentToast();
-                    setTimeout(() => {
-                        this.counter = 0
-                    }, 3000)
-                } else {
-                    // console.log("exitapp");
-                    this.platform.exitApp();
-                }
-            }, 0)
+            // this.platform.registerBackButtonAction(() => {
+            //     if (this.counter == 0) {
+            //         this.counter++;
+            //         this.presentToast();
+            //         setTimeout(() => {
+            //             this.counter = 0
+            //         }, 3000)
+            //     } else {
+            //         // console.log("exitapp");
+            //         this.platform.exitApp();
+            //     }
+            // }, 0)
         });
     }
 
@@ -193,16 +193,16 @@ export class MyApp {
         this.loadingVisible = false;
     }
 
-    presentToast() {
-        this.apiService.fnGetTranslate('CONFIRM_TO_EXIT').then((msg:any)=>{
-            let toast = this.toastCtrl.create({
-                message: msg,
-                duration: 3000,
-                position: "middle"
-            });
-            toast.present();
-        });
-    }
+    // presentToast() {
+    //     this.apiService.fnGetTranslate('CONFIRM_TO_EXIT').then((msg:any)=>{
+    //         let toast = this.toastCtrl.create({
+    //             message: msg,
+    //             duration: 3000,
+    //             position: "bottom"
+    //         });
+    //         toast.present();
+    //     });
+    // }
 }
 
 

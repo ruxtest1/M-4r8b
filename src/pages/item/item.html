@@ -65,32 +65,32 @@
   </div>
 
   <!--item options-->
-  <!--<div class="card light-bg" margin-top>-->
-    <!--<ion-item class="no-border">-->
-      <!--<div>-->
-        <!--<div>{{ getOptionGroupsName(item) }}</div>-->
+  <div class="card light-bg" margin-top *ngIf="shareService.open_add_cart">
+    <ion-item class="no-border">
+      <div>
+        <div>{{ getOptionGroupsName(productData) }}</div>
         <!--<div>-->
           <!--<span ion-text color="gray" class="pull-left" *ngIf="item.shipping == 0">Free shipping</span>-->
           <!--<span ion-text color="gray" class="pull-left" *ngIf="item.shipping != 0">Shipping: {{ item.shipping | currency:'฿':true}}</span>-->
         <!--</div>-->
-      <!--</div>-->
+      </div>
 
-      <!--<div item-right>-->
-        <!--<span class="bold" ion-text color="secondary" (click)="showOptions(item)">SELECT</span>-->
-      <!--</div>-->
-    <!--</ion-item>-->
+      <div item-right>
+        <span class="bold" ion-text color="secondary" (click)="showOptions(productData)">{{'SELECT_PRODUCT_OPTION'|translate}}</span>
+      </div>
+    </ion-item>
 
-    <!--<ion-grid>-->
-      <!--<ion-row>-->
-        <!--<ion-col>-->
-          <!--<button ion-button block class="btn-add-cart" (click)="showOptions(item)">ADD TO CART</button>-->
-        <!--</ion-col>-->
-        <!--<ion-col>-->
-          <!--<button ion-button color="primary" block (click)="showOptions(item)">BUY NOW</button>-->
-        <!--</ion-col>-->
-      <!--</ion-row>-->
-    <!--</ion-grid>-->
-  <!--</div>-->
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block class="btn-add-cart" (click)="showOptions(productData)">{{'ADD_TO_CART'|translate}}</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button color="primary" block (click)="showOptions(productData)">{{'BUY_NOW'|translate}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
   <!--Description-->
   <div class="card light-bg" margin-top>

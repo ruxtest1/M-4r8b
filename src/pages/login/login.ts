@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {RegisterPage} from "../register/register";
 import {HomePage} from '../home/home';
 import {ForgotPasswordPage} from "../forgot-password/forgot-password";
+import {VendorRegisterPage} from "../vendor-register/vendor-register";
 
 /*
  Generated class for the LoginPage page.
@@ -21,7 +22,8 @@ export class LoginPage {
 
   // go to register page
   register() {
-    this.nav.push(RegisterPage);
+    // this.nav.push(RegisterPage);
+    this.nav.push(VendorRegisterPage);
   }
 
   // go to home page

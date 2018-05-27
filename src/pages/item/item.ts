@@ -146,9 +146,12 @@ export class ItemPage implements OnInit {
     // get item options group name
     getOptionGroupsName(item) {
         let optionGroups = [];
-        for (let i = 0; i < item.option_groups.length; i++) {
-            optionGroups.push(item.option_groups[i].name);
-        }
+        // for (let i = 0; i < item.option_groups.length; i++) {
+        //     optionGroups.push(item.option_groups[i].name);
+        // }
+        item.attribute_group.forEach((val) => {
+            optionGroups.push(this.sv.fnLang(val, 'group_name'));
+        });
 
         return optionGroups.join(',');
     }

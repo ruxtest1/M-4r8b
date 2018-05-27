@@ -8,6 +8,23 @@ page-modal-item-option,
     margin-right: 12px;
     border: 1px solid color($colors, bgColor);
     font-size: 0.8em;
+    min-width: 70px;
+    text-align: center;
+
+    &.active {
+      border: 1px solid color($colors, danger);
+    }
+  }
+
+  .item-option-color {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 12px;
+    margin-right: 12px;
+    border: 1px solid color($colors, bgColor);
+    font-size: 0.8em;
+    min-width: 70px;
+    text-align: center;
 
     &.active {
       border: 1px solid color($colors, danger);

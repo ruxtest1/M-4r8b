@@ -16,7 +16,7 @@
   "SELECT_FILE": "เลือกไฟล์",
   "UPLOAD_IMAGE_SUCCESS": "อัพโหลดรูปภาพสำเร็จ",
   "UPLOAD_FILE_SUCCESS": "อัพโหลดไฟล์ภาพสำเร็จ",
-  "THANK_YOU_FOR_REGISTER": "ขอบคุณที่สมัตรสมาชิกกับเรา",
+  "THANK_YOU_FOR_REGISTER": "ขอบคุณสำหรับการลงทะเบียน",
   "CHANGE_IMAGE": "เปลี่ยนรูป",
   "SELECT_FILE_MORE": "เลือกไฟล์เพิ่ม",
   "CONFIRM_TO_EXIT": "กดปุ่มย้อนกลับอีกครั้ง เพื่อออกจากโปรแกรม",
@@ -76,7 +76,7 @@
 
   "CATEGORY": "หมวดหมู่สินค้า",
 
-  "COMPANY_NAME": "บริษัท/ห้องร้าน(ถ้ามี)",
+  "COMPANY_NAME": "บริษัท/ชื่อร้าน(ถ้ามี)",
   "FIRST_NAME_LAST_NAME": "ชื่อ-นามสกุล",
   "PHONE": "เบอร์โทร",
   "LINE_ID": "LINE ID",

@@ -7,6 +7,7 @@ import {Injectable} from '@angular/core';
 export class SharedService {
   // loadingVisible = false;
   public lang = 'th';
+  public open_add_cart = false;
   public userData = {
     vendor: {
         star: 0
