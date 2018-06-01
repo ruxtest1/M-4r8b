@@ -52,11 +52,13 @@
   "SETTINGS_OPTION3": "Option 3",
   "SETTINGS_OPTION4": "Option 4",
 
+  "PROFILE": "Profile",
   "SETTINGS_PROFILE_BUTTON" : "Edit Profile",
 
   "SETTINGS_PAGE_PROFILE": "Edit Profile",
 
   "WELCOME_TITLE": "Welcome",
+  "WELCOME_USER_VENDOR": "Hello user Marukyo.",
 
   "LOGIN_TITLE": "Sign in",
   "LOGIN_ERROR": "Unable to sign in. Please check your account information and try again.",
@@ -94,6 +96,7 @@
   "WEB_SITE": "Web Site",
   "MAP": "Map",
   "VENDOR_REGISTER": "Vendor Register",
+  "USER_IS_NOT_VENDOR": "User is not a reseller.",
 
   "CATEGORY": "Categories",
 
@@ -149,6 +152,8 @@
   "CANCEL": "Cancel",
   "CONFIRM_DELETE": "Cancel",
   "DO_YOU_WANT_DELETE_DATA": "Cancel",
+  "CONFIRM_LOGOUT": "Confirm to logout",
+  "DO_YOU_WANT_TO_LOGOUT_APP": "Do you want to logout application?",
   "SELECT_DELIVERY_PRODUCT": "Delivery Product",
   "DELIVERY_TYPE": "Delivery Type",
   "DELIVERY_ADDRESS": "Deliver Address",

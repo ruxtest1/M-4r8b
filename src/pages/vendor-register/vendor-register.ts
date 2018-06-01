@@ -28,6 +28,7 @@ export class VendorRegisterPage {
         'name_th': '',
         'name_en': '',
         'email': '',
+        'password': '',
         'phone': '',
         'image_card_no_path': '',
         'image_front_store_path': '',
@@ -40,6 +41,10 @@ export class VendorRegisterPage {
         'email': {
             'required': 'กรุณากรอก อีเมล',
             'email': 'รูปแบบอีเมลไม่ถูกต้อง'
+        },
+        'password': {
+            'required': 'กรุณากรอก รหัสผ่าน',
+            'minlength': 'รหัสผ่านต้องมีความยาวมากกว่า 4 ตัว',
         },
         'phone': {
             'required': 'กรุณากรอกเบอร์โทร'
@@ -82,6 +87,10 @@ export class VendorRegisterPage {
                     'required': 'Email is required.',
                     'email': 'Email is not valid'
                 },
+                'password': {
+                    'required': 'Password is required.',
+                    'minlength': 'Password must be at least 4 characters long.',
+                },
                 'phone': {
                     'required': 'Phone is required.'
                 },
@@ -113,6 +122,7 @@ export class VendorRegisterPage {
                 'phone': ['', [Validators.required]],
                 'line_id': [''],
                 'email': ['', [Validators.required, Validators.email]],
+                'password': ['', [Validators.required]],
                 'address_th': [''],
                 'city_th': [''],
                 'file_certificate': [''],
@@ -128,6 +138,7 @@ export class VendorRegisterPage {
                 'phone': ['', [Validators.required]],
                 'line_id': [''],
                 'email': ['', [Validators.required, Validators.email]],
+                'password': ['', [Validators.required]],
                 'address_en': [''],
                 'city_en': [''],
                 'file_certificate': [''],
@@ -280,31 +291,34 @@ export class VendorRegisterPage {
     }
 
     fnUploadCardNo(e) {
+        const res = JSON.parse(e.request.response).google;
         console.log('upload success:', e)
         this.disableBtn = false;
-        const img = this.apiService.fnGetImgUrl(e, this.api.vendor.image.view);
-        this.image_card_no_path = img.url;
+        // const img = this.apiService.fnGetImgUrl(e, this.api.vendor.image.view);
+        this.image_card_no_path = res.path;
         this.apiService.showSuccessTranslate('UPLOAD_IMAGE_SUCCESS');
         this.fnValidateImg();
     }
 
     async uploadFileCertificate(e) {
+        const res = JSON.parse(e.request.response).google;
         this.disableBtn = false;
-        const img = this.apiService.fnGetImgUrl(e, this.api.vendor.file.view);
+        // const img = this.apiService.fnGetImgUrl(e, this.api.vendor.file.view);
         this.file_certificate.push({
-            name: img.name,
-            path: img.url,
+            name: res.name,
+            path: res.path,
             order: 999,
         });
         this.apiService.showSuccessTranslate('UPLOAD_FILE_SUCCESS');
     }
 
     async uploadFileFrontStore(e) {
+        const res = JSON.parse(e.request.response).google;
         this.disableBtn = false;
-        const img = this.apiService.fnGetImgUrl(e, this.api.vendor.file.view);
+        // const img = this.apiService.fnGetImgUrl(e, this.api.vendor.file.view);
         this.image_front_store_path.push({
-            name: img.name,
-            path: img.url,
+            name: res.name,
+            path: res.path,
             order: 999,
         });
         this.apiService.showSuccessTranslate('UPLOAD_FILE_SUCCESS');

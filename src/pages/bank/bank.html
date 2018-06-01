@@ -19,10 +19,10 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item-sliding #item *ngFor="let bank of banks">
-      <ion-item>
+    <!--<ion-item-sliding #item *ngFor="let bank of banks">-->
+      <ion-item *ngFor="let bank of banks">
         <ion-grid>
-          <ion-row (click)="fnCopy(bank.bank_account_number)">
+          <ion-row>
             <ion-col col-3>
               <img [src]="apiService.fnBuildImgUrl(bank.image_path)" style="width: 98%;margin-left: -10px">
             </ion-col>
@@ -31,14 +31,17 @@
               <p><span class="font-bold"><b>{{ 'BANK'| translate }}:</b></span> {{apiService.fnLang(bank, 'bank_name')}}</p>
               <p><span class="font-bold"><b>{{ 'BRANCH'| translate }}:</b></span> {{apiService.fnLang(bank, 'branch_name')}}</p>
               <p><span class="font-bold"><b>{{ 'TYPE'| translate }}:</b></span> {{apiService.fnLang(bank, 'bank_type')}}</p>
-              <p><span class="font-bold"><b>{{ 'BANK_NO'| translate }}:</b></span> {{bank.bank_account_number}}</p>
+              <p><span class="font-bold">
+                <b>{{ 'BANK_NO'| translate }}:</b></span>
+                <span class="font-blue" (click)="fnCopy(bank.bank_account_number.replace('-', ''))">{{bank.bank_account_number}}</span>
+              </p>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary" (click)="fnCopy(bank.bank_account_number)">{{'COPY'| translate}}</button>
-      </ion-item-options>
-    </ion-item-sliding>
+      <!--<ion-item-options side="right">-->
+        <!--<button ion-button color="primary" (click)="fnCopy(bank.bank_account_number)">{{'COPY'| translate}}</button>-->
+      <!--</ion-item-options>-->
+    <!--</ion-item-sliding>-->
   </ion-list>
 </ion-content>

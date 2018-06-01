@@ -22,7 +22,7 @@
     <!-- slider on top-->
     <ion-slides pager autoplay="5000" class="border-bottom" *ngIf="productData.image_gallery_path.length">
       <ion-slide *ngFor="let slide of productData.image_gallery_path; let idx = index">
-        <img style="width: 100%;" src="{{ sv.fnBuildImg(slide, 'path') }}" alt="" (click)="fnShowModalImg(idx)">
+        <img style="width: 100%;max-height: 500px;" src="{{ sv.fnBuildImg(slide, 'path') }}" alt="" (click)="fnShowModalImg(idx)">
       </ion-slide>
     </ion-slides>
     <!--<ion-slides  pager autoplay="2000" class="border-bottom">-->

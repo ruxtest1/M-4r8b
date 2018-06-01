@@ -17,7 +17,7 @@
                 <!--&nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="ios-cart"></ion-icon>-->
                 <!--<span class="badge"> {{ shareService.count_product }} </span>-->
             <!--</button>-->
-            <button ion-button icon-only (click)="fnGOToCart()">
+            <button ion-button icon-only (click)="fnGOToCart()" *ngIf="shareService.open_add_cart">
                 <ion-icon name="cart"></ion-icon>
             </button>
         </ion-buttons>
@@ -49,10 +49,23 @@
         <!--</ion-list>-->
     <!--</ion-card>-->
 
-    <ion-list class="list-no-border">
-        <ion-item *ngFor="let category of list_category" (click)="fnGoToCate(category)">
-            {{ apiService.fnLang(category, 'name') }} ({{ category.count_product | number }})
-        </ion-item>
-    </ion-list>
+    <ion-grid>
+        <ion-row *ngFor="let cate of list_category" (click)="fnGoToCate(cate);" class="border-bottom">
+            <ion-col col-3>
+                <img src="{{apiService.fnBuildImg(cate, 'image_icon')}}" style="width: 90%">
+            </ion-col>
+            <ion-col col-9 class="margin-auto">
+                <h2 class="font-blue font-bold">{{apiService.fnLang(cate, 'name')}}
+                    ({{ cate.count_product | number }})
+                </h2>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!--<ion-list class="list-no-border">-->
+        <!--<ion-item *ngFor="let category of list_category" (click)="fnGoToCate(category)">-->
+            <!--{{ apiService.fnLang(category, 'name') }} ({{ category.count_product | number }})-->
+        <!--</ion-item>-->
+    <!--</ion-list>-->
 
 </ion-content>

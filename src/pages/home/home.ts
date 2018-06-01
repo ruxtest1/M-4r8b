@@ -56,6 +56,7 @@ export class HomePage implements OnInit {
     limit = 10;
     page = 0;
     counter = 0;
+    isVendor = false;
     // Property used to store the callback of the event handler to unsubscribe to it when leaving this page
     public unregisterBackButtonAction: any;
 
@@ -120,7 +121,8 @@ export class HomePage implements OnInit {
     }
 
     async ngOnInit() {
-        // this.userData = await this.sv.getUserData();
+        const t = this;
+        this.isVendor = await this.sv.fnIsVendor();
         // this.lang = this.shareService.lang;
         // this.product_id = this.navParams.get('id');
         const products = await this.fnGetList(this.page, this.limit);
@@ -130,8 +132,10 @@ export class HomePage implements OnInit {
             this.isProductNotFound = false;
             this.isMax = true;
         } else if (this.countProduct) {
-            this.isProductNotFound = true;
-            this.temp_list_product = await this.fnGetList(this.page+1, this.limit);
+            this.isProductNotFound = false;
+            setTimeout(async()=> {
+                t.temp_list_product = await t.fnGetList(t.page+1, t.limit);
+            }, 500)
         }
         this.hideMsg = false;
     }
@@ -187,7 +191,7 @@ export class HomePage implements OnInit {
             this.page++;
             let newItems = this.temp_list_product;
             if (newItems != false) {
-                this.isMax = newItems.rows.length > 0 ? false : true;
+                this.isMax = +newItems.rows.length < +this.limit ? true : false;
                 // this.isProductNotFound = newItems.totalCount > 0 ? false : true;
                 for (let i in newItems.rows) {
                     this.list_product.push(newItems.rows[i]);
@@ -214,6 +218,10 @@ export class HomePage implements OnInit {
     }
 
     fnGoVIPLogin() {
+        this.nav.push(LoginPage);
+    }
+
+    fnGoToProfile() {
         this.nav.push(LoginPage);
     }
 

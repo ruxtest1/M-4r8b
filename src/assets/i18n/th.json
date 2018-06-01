@@ -44,9 +44,11 @@
   "SETTINGS_OPTION3": "ตัวเลือก 3",
   "SETTINGS_OPTION4": "ตัวเลือก 4",
 
+  "PROFILE": "ข้อมูลผู้ใช้งาน",
   "SETTINGS_PAGE_PROFILE": "แก้ไขข้อมูลส่วนตัว",
 
   "WELCOME_TITLE": "ยินดีต้อนรับ",
+  "WELCOME_USER_VENDOR": "สวัสดีสมาชิก Marukyo",
 
   "LOGIN_TITLE": "การเข้าระบบ",
   "LOGIN_ERROR": "เข้าระบบไม่ได้. ตรวจสอบข้อมูลที่กรอกแล้วกรุณาลองใหม่",
@@ -73,6 +75,7 @@
   "WEB_SITE": "เว็บไซต์",
   "MAP": "แผนที่บริษัท",
   "VENDOR_REGISTER": "สมัครตัวแทน",
+  "USER_IS_NOT_VENDOR": "ข้อมูลผู้ใช้งาน ไม่ใช่ตัวแทนจำหน่าย",
 
   "CATEGORY": "หมวดหมู่สินค้า",
 
@@ -131,6 +134,8 @@
   "CANCEL": "ยกเลิก",
   "CONFIRM_DELETE": "ยืนยันการลบข้อมูล",
   "DO_YOU_WANT_DELETE_DATA": "ต้องการลบข้อมูลใช่ หรือไม่?",
+  "CONFIRM_LOGOUT": "ยืนยันการออกจากระบบ",
+  "DO_YOU_WANT_TO_LOGOUT_APP": "คุณต้องการออกจากระบบ ใช่หรือไม่",
   "SELECT_DELIVERY_PRODUCT": "เลือกวิธีจัดส่งสินค้า",
   "DELIVERY_TYPE": "วิธีจัดส่ง",
   "DELIVERY_ADDRESS": "ที่อยู่ในการจัดส่ง",

@@ -6,16 +6,48 @@
       <a menuClose>
         <!--<img class="profile-picture" src="assets/img/Marukyo-app-bg-750.png">-->
         <img style="width: 80%" class="" src="assets/img/Marukyo-app-bg-750.png">
-        <!--<h4 ion-text color="light">Marukyo</h4>-->
+        <h4 ion-text color="light" *ngIf="service.isLogin">{{apiService.fnLang(service.userData.user, 'name')}}</h4>
       </a>
     </div>
 
     <ion-list class="list-full-border">
-      <button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
-        <ion-icon item-left name="{{ page.icon }}"></ion-icon>
-        {{ page.title | translate}}
-        <ion-badge color="danger" item-right *ngIf="page.count">{{ page.count }}</ion-badge>
-        <!--<ion-badge color="danger" item-right *ngIf="page.msg">{{ page.msg }}</ion-badge>-->
+      <!--<button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">-->
+        <!--<ion-icon item-left name="{{ page.icon }}"></ion-icon>-->
+        <!--{{ page.title | translate}}-->
+        <!--<ion-badge color="danger" item-right *ngIf="page.count">{{ page.count }}</ion-badge>-->
+        <!--&lt;!&ndash;<ion-badge color="danger" item-right *ngIf="page.msg">{{ page.msg }}</ion-badge>&ndash;&gt;-->
+      <!--</button>-->
+      <button ion-item menuClose (click)="goHome()">
+        <ion-icon item-left name="md-home"></ion-icon>
+        {{ 'HOME' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goCategory()">
+        <ion-icon item-left name="md-list-box"></ion-icon>
+        {{ 'CATEGORY' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goLogin()" *ngIf="!service.isLogin">
+        <ion-icon item-left name="md-contact"></ion-icon>
+        {{ 'LOGIN' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goProfile()" *ngIf="service.isLogin">
+        <ion-icon item-left name="md-contact"></ion-icon>
+        {{ 'PROFILE' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goVendorRegister()" *ngIf="!service.isLogin">
+        <ion-icon item-left name="md-people"></ion-icon>
+        {{ 'VENDOR_REGISTER' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goContractUs()">
+        <ion-icon item-left name="md-call"></ion-icon>
+        {{ 'CONTACT_US' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goSetting()">
+        <ion-icon item-left name="md-settings"></ion-icon>
+        {{ 'SETTINGS_TITLE' | translate}}
+      </button>
+      <button ion-item menuClose (click)="goLogout()" *ngIf="service.isLogin">
+        <ion-icon item-left name="log-out"></ion-icon>
+        {{ 'LOGOUT' | translate}}
       </button>
     </ion-list>
   </ion-content>

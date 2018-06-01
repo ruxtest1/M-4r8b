@@ -21,18 +21,19 @@
   <ion-list class="list-form">
 
     <ion-item>
-      <ion-input type="text" placeholder="{{ 'EMAIL' | translate }}"></ion-input>
+      <ion-input type="text" placeholder="{{ 'EMAIL' | translate }}"
+                 [(ngModel)]="username"></ion-input>
     </ion-item>
-
     <ion-item>
-      <ion-input type="password" placeholder="{{ 'PASSWORD' | translate }}"></ion-input>
+      <ion-input type="password" placeholder="{{ 'PASSWORD' | translate }}"
+                 [(ngModel)]="password"></ion-input>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button color="primary" block (click)="login()">{{ 'LOGIN' | translate }}</button>
+  <button ion-button color="primary" block (click)="onSubmit($event)">{{ 'LOGIN' | translate }}</button>
 
-  <div text-right margin-top margin-bottom (click)="forgotPwd()">{{ 'FORGET_PASSWORD' | translate }}?</div>
+  <div class="font-blue" text-right margin-top margin-bottom (click)="forgotPwd()">{{ 'FORGET_PASSWORD' | translate }}?</div>
 
   <!--<button ion-button icon-left block color="facebook" class="align-left">-->
     <!--<ion-icon name="logo-facebook"></ion-icon>-->
@@ -45,6 +46,7 @@
   <!--</button>-->
 
   <div class="align-bottom" padding text-center>
-    No Account? <span class="bold" (click)="register()">Register</span>
+    <!--<span class="bold font-blue" (click)="register()">{{'VENDOR_REGISTER'|translate}}</span>-->
+    <button ion-button color="secondary" block (click)="register()">{{ 'VENDOR_REGISTER' | translate }}</button>
   </div>
 </ion-content>

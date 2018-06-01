@@ -63,17 +63,19 @@ export class SearchResultPage implements OnInit {
     }
 
     async fnGetCatGroup() {
+        const t = this;
         let res = await this.fnGetList(this.page, this.limit);
-        console.log(res)
         this.list_product = res.rows;
         this.countProduct = this.list_product.length;
-        console.log(this.countProduct)
+        // console.log(this.countProduct)
         if (this.countProduct > 0 && this.countProduct < this.limit) {
             this.isProductNotFound = false;
             this.isMax = true;
         } else if (this.countProduct) {
             this.isProductNotFound = false;
-            this.temp_list_product = await this.fnGetList(this.page+1, this.limit);
+            setTimeout(async()=> {
+                t.temp_list_product = await t.fnGetList(t.page+1, t.limit);
+            }, 500);
         }
         this.hideMsg = false;
     }
@@ -93,7 +95,7 @@ export class SearchResultPage implements OnInit {
             this.page++;
             let newItems = this.temp_list_product;
             if (newItems != false) {
-                this.isMax = newItems.rows.length > 0 ? false : true;
+                this.isMax = +newItems.rows.length < +this.limit ? true : false;
                 // this.isProductNotFound = newItems.length ? false : true;
                 for (let i in newItems.rows) {
                     this.list_product.push(newItems.rows[i]);

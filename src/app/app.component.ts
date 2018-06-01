@@ -17,6 +17,11 @@ import {HomePage} from '../pages/home/home';
 // import {CartPage} from '../pages/cart/cart';
 import {SettingsPage} from '../pages/settings/settings';
 import {CategoriesPage} from '../pages/categories/categories';
+import {CategoryPage} from "../pages/category/category";
+import {LoginPage} from "../pages/login/login";
+import {VendorRegisterPage} from "../pages/vendor-register/vendor-register";
+import {ContactUsPage} from "../pages/contact-us/contact-us";
+import {DEFAULT} from "./app.constant";
 // import {WishListPage} from '../pages/wish-list/wish-list';
 // import {MyOrderPage} from '../pages/my-order/my-order';
 
@@ -27,6 +32,7 @@ import {CategoriesPage} from '../pages/categories/categories';
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
+    api = DEFAULT.config;
     public loadingVisible = false;
 
     public rootPage: any;
@@ -35,6 +41,13 @@ export class MyApp {
 
     public pages = [];
     public counter = 0;
+    isLogin = false;
+    userData = {
+        user: {
+            name_th: '',
+            name_en: '',
+        }
+    };
 
     constructor(private translate: TranslateService,
                 public platform: Platform,
@@ -123,7 +136,6 @@ export class MyApp {
     }
 
     async initializeApp() {
-        this.service.userData = await this.apiService.getUserData();
         this.platform.ready().then((p) => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -147,6 +159,9 @@ export class MyApp {
             //     }
             // }, 0)
         });
+
+        this.service.userData = await this.apiService.getUserData();
+        this.service.isLogin = await this.apiService.isLogin();
     }
 
     async initTranslate() {
@@ -191,6 +206,54 @@ export class MyApp {
 
     public fnHideLoading() {
         this.loadingVisible = false;
+    }
+
+    goHome() {
+        this.nav.setRoot(HomePage);
+    }
+
+    goCategory() {
+        this.nav.push(CategoriesPage);
+    }
+
+    goLogin() {
+        this.nav.push(LoginPage);
+    }
+
+    goProfile() {
+        this.nav.push(LoginPage);
+    }
+
+    goVendorRegister() {
+        this.nav.push(VendorRegisterPage);
+    }
+
+    goSetting() {
+        this.nav.push(SettingsPage);
+    }
+
+    goContractUs() {
+        this.nav.push(ContactUsPage);
+    }
+
+    async goLogout() {
+        const t = this;
+        const fnConfirm = () => {
+            t.apiService.post(t.api.userApi.logout, {})
+                .then(async (response) => {
+                    await t.apiService.fnLogout();
+                    t.nav.setRoot(HomePage);
+                }, async (err) => { // when failed
+                    await t.apiService.fnLogout();
+                    t.nav.setRoot(HomePage);
+                });
+        };
+        const title = await this.apiService.fnGetTranslate('CONFIRM_LOGOUT');
+        const text = await this.apiService.fnGetTranslate('DO_YOU_WANT_TO_LOGOUT_APP');
+        await this.apiService.fnConfirm(fnConfirm, title, text);
+
+        this.isLogin = await this.apiService.isLogin();
+        this.userData = await this.apiService.getUserData();
     }
 
     // presentToast() {

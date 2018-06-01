@@ -43,9 +43,13 @@
                     <img src="assets/ico/icon-product1.png" alt="">
                     <div text-center>{{ 'CATEGORY' | translate }}</div>
                 </ion-col>
-                <ion-col col-3 (click)="fnGoVIPLogin()">
+                <ion-col col-3 (click)="fnGoVIPLogin()" *ngIf="!isVendor">
                     <img src="assets/ico/user-login-icon.png" alt="">
                     <div text-center>{{ 'LOGIN' | translate }}</div>
+                </ion-col>
+                <ion-col col-3 (click)="fnGoToProfile()" *ngIf="isVendor">
+                    <img src="assets/ico/user-login-icon.png" alt="">
+                    <div text-center>{{ 'PROFILE' | translate }}</div>
                 </ion-col>
                 <ion-col col-3 (click)="fnGoVendorRegister()">
                     <img src="assets/ico/user-group.png" alt="">

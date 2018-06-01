@@ -50,6 +50,15 @@
                 {{ formErrors.email }}
             </div>
             <ion-item>
+                <ion-label stacked><i class="font-red">*</i>
+                    {{ 'PASSWORD' | translate }}:
+                </ion-label>
+                <ion-input type="text" formControlName="password"></ion-input>
+            </ion-item>
+            <div *ngIf="formErrors.password" class="font-red">
+                {{ formErrors.password }}
+            </div>
+            <ion-item>
                 <ion-label stacked>{{ 'LINE_ID' | translate }}:</ion-label>
                 <ion-input type="text" formControlName="line_id"></ion-input>
             </ion-item>
@@ -175,6 +184,15 @@
             </ion-item>
             <div *ngIf="formErrors.email" class="font-red">
                 {{ formErrors.email }}
+            </div>
+            <ion-item>
+                <ion-label stacked><i class="font-red">*</i>
+                    {{ 'PASSWORD' | translate }}:
+                </ion-label>
+                <ion-input type="text" formControlName="password"></ion-input>
+            </ion-item>
+            <div *ngIf="formErrors.password" class="font-red">
+                {{ formErrors.password }}
             </div>
             <ion-item>
                 <ion-label stacked>{{ 'LINE_ID' | translate }}:</ion-label>

@@ -90,7 +90,7 @@ export class Service {
         } catch (err) {
 
         }
-        console.error('An error occurred: ', error); // for demo purposes only
+        console.log('An error occurred: ', error); // for demo purposes only
         console.log(typeof error);
         if (typeof error === 'string') {
             // this.showError(error);
@@ -120,6 +120,31 @@ export class Service {
         await fnGetMsg();
         swal({
             title: msg || text,
+            text: title,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            allowOutsideClick: false,
+            confirmButtonText: yes,
+            cancelButtonText: cancel
+        }).then(function (res) {
+            if (res.value) {
+                fnCall();
+            }
+        })
+    }
+
+    async fnConfirm(fnCall, title, text) {
+        let cancel: any,
+            yes: any;
+        const fnGetMsg = async () => {
+            cancel = await this.fnGetTranslate('CANCEL') + '';
+            yes = await this.fnGetTranslate('YES') + '';
+        };
+        await fnGetMsg();
+        swal({
+            title: text,
             text: title,
             type: 'warning',
             showCancelButton: true,
@@ -312,7 +337,7 @@ export class Service {
         }
         objQuery.lang = this.sharedService.lang;
         if (this.checkData(userData)) {
-            if (this.checkData(userData['access_token'])) {
+            if (this.checkData(userData['id'])) {
                 objQuery.access_token = userData['access_token'];
                 // objQuery.user_name = userData.user_name;
                 // objQuery.user_id = userData.id;
@@ -523,9 +548,18 @@ export class Service {
         }
     }
 
+    async fnIsVendor() {
+        const user = await this.getUserData();
+        return user.is_vendor === true;
+    }
+
     async isLogin() {
         let user = await this.getUserData();
         return this.checkData(user);
+    }
+
+    async fnLogout() {
+       await this.deleteStorage(this.userDataKey);
     }
 
     async fnGoLogin() {

@@ -93,11 +93,10 @@ export class ItemPage implements OnInit {
             if (this.productData.image_gallery_path === null) {
                 this.productData.image_gallery_path = [];
             }
-            // let newArrImg = [];
-            if (!this.productData.image_gallery_path.length) {
-                this.productData.image_gallery_path.push({
+            if (this.productData.logo_path) {
+                this.productData.image_gallery_path.unshift({
                     path: this.productData.logo_path,
-                    path_thumbnail: this.productData.logo_path_thumbnail
+                    path_thumbnail: this.sv.fnGetPathImgThumb(this.productData.logo_path)
                 });
             }
             // this.productData.image_gallery_path.forEach((val) => {

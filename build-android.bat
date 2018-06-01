@@ -9,6 +9,6 @@ set NODE_IP=%ip%
 
 @RD /S /Q "www"
 
-call ionic cordova build android
+call ionic cordova build android --prod
 
 call copy.bat

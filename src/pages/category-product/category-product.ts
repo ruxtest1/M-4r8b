@@ -65,21 +65,21 @@ export class CategoryProductPage implements OnInit {
     }
 
     async fnGetCatGroup() {
+        const t = this;
         let data = await this.fnGetList(this.page, this.limit);
         this.list_product = data.rows;
         this.countProduct = this.list_product.length;
-        console.log(this.countProduct)
+        // console.log(this.countProduct)
         if (this.countProduct > 0 && this.countProduct < this.limit) {
             this.isProductNotFound = false;
             this.isMax = true;
         } else if (this.countProduct > 0) {
             this.isProductNotFound = false;
-            this.temp_list_product = await this.fnGetList(this.page + 1, this.limit);
+            setTimeout(async()=> {
+                t.temp_list_product = await t.fnGetList(t.page+1, t.limit);
+            }, 500);
         }
         this.hideMsg = false;
-        console.log('isProductNotFound:', this.isProductNotFound)
-        console.log('countProduct:', this.countProduct)
-        console.log('hideMsg:', this.hideMsg)
     }
 
     async fnGetList(page, limit) {
@@ -96,9 +96,8 @@ export class CategoryProductPage implements OnInit {
             this.isGetList = true;
             this.page++;
             let newItems = this.temp_list_product;
-            console.log('newItems', newItems);
             if (newItems != false) {
-                this.isMax = newItems.rows.length > 0 ? false : true;
+                this.isMax = +newItems.rows.length < +this.limit ? true : false;
                 // this.isProductNotFound = newItems.length ? false : true;
                 for (let i in newItems.rows) {
                     this.list_product.push(newItems.rows[i]);
