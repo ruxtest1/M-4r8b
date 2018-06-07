@@ -1,12 +1,12 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" (ionOpen)="menuOpened()">
 
   <ion-content class="menu-left">
     <!-- User profile -->
     <div padding class="menu-left menu-bg">
       <a menuClose>
-        <!--<img class="profile-picture" src="assets/img/Marukyo-app-bg-750.png">-->
-        <img style="width: 80%" class="" src="assets/img/Marukyo-app-bg-750.png">
-        <h4 ion-text color="light" *ngIf="service.isLogin">{{apiService.fnLang(service.userData.user, 'name')}}</h4>
+        <img *ngIf="isLogin" class="profile-picture" src="{{sv.fnBuildImg(userData.vendor, 'profile_image')}}">
+        <img *ngIf="!isLogin" style="width: 80%" class="" src="assets/img/Marukyo-app-bg-750.png">
+        <h4 ion-text color="light" *ngIf="isLogin">{{sv.fnLang(userData.vendor, 'name')}}</h4>
       </a>
     </div>
 
@@ -25,15 +25,15 @@
         <ion-icon item-left name="md-list-box"></ion-icon>
         {{ 'CATEGORY' | translate}}
       </button>
-      <button ion-item menuClose (click)="goLogin()" *ngIf="!service.isLogin">
+      <button ion-item menuClose (click)="goLogin()" *ngIf="!isLogin">
         <ion-icon item-left name="md-contact"></ion-icon>
         {{ 'LOGIN' | translate}}
       </button>
-      <button ion-item menuClose (click)="goProfile()" *ngIf="service.isLogin">
+      <button ion-item menuClose (click)="goProfile()" *ngIf="isLogin">
         <ion-icon item-left name="md-contact"></ion-icon>
         {{ 'PROFILE' | translate}}
       </button>
-      <button ion-item menuClose (click)="goVendorRegister()" *ngIf="!service.isLogin">
+      <button ion-item menuClose (click)="goVendorRegister()" *ngIf="!isLogin">
         <ion-icon item-left name="md-people"></ion-icon>
         {{ 'VENDOR_REGISTER' | translate}}
       </button>
@@ -45,7 +45,7 @@
         <ion-icon item-left name="md-settings"></ion-icon>
         {{ 'SETTINGS_TITLE' | translate}}
       </button>
-      <button ion-item menuClose (click)="goLogout()" *ngIf="service.isLogin">
+      <button ion-item menuClose (click)="goLogout()" *ngIf="isLogin">
         <ion-icon item-left name="log-out"></ion-icon>
         {{ 'LOGOUT' | translate}}
       </button>

@@ -44,8 +44,11 @@
   "SETTINGS_OPTION3": "ตัวเลือก 3",
   "SETTINGS_OPTION4": "ตัวเลือก 4",
 
-  "PROFILE": "ข้อมูลผู้ใช้งาน",
+  "MY_ACCOUNT": "ข้อมูลผู้ใช้งาน",
+  "PROFILE": "ข้อมูลส่วนตัว",
   "SETTINGS_PAGE_PROFILE": "แก้ไขข้อมูลส่วนตัว",
+  "PROFILE_IMAGE": "รูปโปรไฟล์",
+  "YOU_CAN_NOT_ACCESS": "ขออภับ คุณไม่มีสิทธิ์แก้ไขข้อมูล",
 
   "WELCOME_TITLE": "ยินดีต้อนรับ",
   "WELCOME_USER_VENDOR": "สวัสดีสมาชิก Marukyo",
@@ -53,6 +56,7 @@
   "LOGIN_TITLE": "การเข้าระบบ",
   "LOGIN_ERROR": "เข้าระบบไม่ได้. ตรวจสอบข้อมูลที่กรอกแล้วกรุณาลองใหม่",
   "LOGIN_BUTTON": "เข้าระบบ",
+  "LOGOUT_SUCCESS": "ออกจากระบบสำเร็จ",
   "SIGNUP_TITLE": "สมัครใช้งาน",
   "SIGNUP_ERROR": "ไม่สามารถสร้างผู้ใช้ใหม่ กรุณาตรวจสอบข้อมูลที่กรอกแล้วลองใหม่",
   "SIGNUP_BUTTON": "สมัคร",
@@ -102,7 +106,15 @@
   "PLEASE_ADD_PASSWORD": "กรุณากรอกรหัสผ่าน",
   "VIP_PROFILE": "ข้อมูลผู้ใช้งาน",
   "LOGOUT": "ออกจากระบบ",
-  "EDIT_PROFILE": "แก้ไขข้อมูลผู้ใช้งาน",
+  "CHANGE_PASSWORD": "เปลี่ยนรหัสผ่าน",
+  "OLD_PASSWORD": "รหัสผ่านเก่า",
+  "NEW_PASSWORD": "รหัสผ่านใหม่",
+  "SAVE": "บันทึก",
+  "OLD_PASSWORD_INVALID": "รหัสผ่านเก่าไม่ถูกต้อง",
+  "OLD_PASSWORD_REQUIRE": "รหัสผ่านเก่าต้องกรอก",
+  "NEW_PASSWORD_REQUIRE": "รหัสผ่านเก่าต้องกรอก",
+  "PASSWORD_3_CHARACTER": "รหัสผ่านต้องมีความยาวมากกว่า 3 ตัว",
+  "EDIT_PROFILE": "แก้ไขข้อมูลส่วนตัว",
   "LOADING_DATA": "กำลังโหลดข้อมุล",
   "DATA_NOT_FOUND": "ไม่พบข้อมูล",
   "PRICE": "ราคา",
@@ -150,5 +162,6 @@
   "SAVE_DATA_FAIL": "บันทึกข้อมูลผิดพลาด",
   "SAVE_DATA_SUCCESS": "บันทึกข้อมูลสำเร็จ",
   "RESET_PASSWORD": "รีเซ็ตรหัสผ่าน",
-  "AUTHORIZATION_REQUIRED": "กรุณาล็อคอินเข้าสู่ระบบอีกครั้ง"
+  "AUTHORIZATION_REQUIRED": "กรุณาล็อคอินเข้าสู่ระบบอีกครั้ง",
+  "YOU_SESSION_EXPIRE": "Session คุฒหมดอายุ กรุณาล็อคอินเข้าสู่ระบบอีกครั้ง"
 }

@@ -17,6 +17,7 @@ import {ContactUsPage} from "../contact-us/contact-us";
 import {BankPage} from "../bank/bank";
 import {MapPage} from "../map/map";
 import {VendorRegisterPage} from "../vendor-register/vendor-register";
+import {ProfilePage} from "../profile/profile";
 
 /*
  Generated class for the LoginPage page.
@@ -222,7 +223,7 @@ export class HomePage implements OnInit {
     }
 
     fnGoToProfile() {
-        this.nav.push(LoginPage);
+        this.nav.push(ProfilePage);
     }
 
     fnGoVendorRegister() {

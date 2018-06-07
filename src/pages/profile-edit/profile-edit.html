@@ -1,0 +1,191 @@
+<!--
+  Generated template for the VendorRegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>{{ 'SETTINGS_PAGE_PROFILE' | translate }}</ion-title>
+        <ion-buttons end>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="register">
+    <form #form="ngForm" [formGroup]="registerData" (ngSubmit)="fnSendData(form)">
+        <ion-list class="list-form">
+            <img width="80" [src]="sv.fnGetUrlFromGoogle(profile_image)" />
+            <div class="dx-field">
+                <div class="dx-field-label" style="width: 100%;">
+                    {{ 'PROFILE_IMAGE' | translate }}:</div>
+                <dx-file-uploader
+                        #fileUploaderCardNo
+                        [uploadUrl]="urlUpload"
+                        uploadMethod="POST"
+                        [multiple]="false"
+                        accept="image/*"
+                        uploadMode="instantly"
+                        labelText=""
+                        (onUploadStarted)="fnDisableBtn($event)"
+                        (onUploaded)="fnUploadProfileImg($event)"
+                        (onUploadedError)=uploadImgError($event)
+                        selectButtonText="{{profile_image?('CHANGE_IMAGE'|translate) :('SELECT_IMAGE'|translate)}}">
+                </dx-file-uploader>
+            </div>
+            <ion-item *ngIf="lang=='th'">
+                <ion-label stacked>{{ 'COMPANY_NAME' | translate }}:</ion-label>
+                <ion-input type="text" formControlName="company_name_th"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="lang!='th'">
+                <ion-label stacked>{{ 'COMPANY_NAME' | translate }}:</ion-label>
+                <ion-input type="text" formControlName="company_name_en"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="lang=='th'">
+                <ion-label stacked><i class="font-red">*</i>
+                    {{ 'FIRST_NAME_LAST_NAME' | translate }}:
+                </ion-label>
+                <ion-input type="text" formControlName="name_th"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="lang!='th'">
+                <ion-label stacked><i class="font-red">*</i>
+                    {{ 'FIRST_NAME_LAST_NAME' | translate }}:
+                </ion-label>
+                <ion-input type="text" formControlName="name_en"></ion-input>
+            </ion-item>
+            <div *ngIf="formErrors.name_th" class="font-red">
+                {{ formErrors.name_th }}
+            </div>
+            <ion-item>
+                <ion-label stacked><i class="font-red">*</i>
+                    {{ 'PHONE' | translate }}:
+                </ion-label>
+                <ion-input type="text" formControlName="phone"></ion-input>
+            </ion-item>
+            <div *ngIf="formErrors.phone" class="font-red">
+                {{ formErrors.phone }}
+            </div>
+            <ion-item>
+                <ion-label stacked>
+                    <!--<i class="font-red">*</i>-->
+                    {{ 'EMAIL' | translate }}:
+                </ion-label>
+                <ion-input disabled="true" type="text" formControlName="email"></ion-input>
+            </ion-item>
+            <div *ngIf="formErrors.email" class="font-red">
+                {{ formErrors.email }}
+            </div>
+            <ion-item>
+                <ion-label stacked>{{ 'LINE_ID' | translate }}:</ion-label>
+                <ion-input type="text" formControlName="line_id"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="lang=='th'">
+                <ion-label stacked>{{ 'ADDRESS' | translate }}:</ion-label>
+                <ion-textarea formControlName="address_th"></ion-textarea>
+            </ion-item>
+            <ion-item *ngIf="lang!='th'">
+                <ion-label stacked>{{ 'ADDRESS' | translate }}:</ion-label>
+                <ion-textarea formControlName="address_en"></ion-textarea>
+            </ion-item>
+            <ion-item *ngIf="lang=='th'">
+                <ion-label stacked>{{ 'CITY' | translate }}:</ion-label>
+                <ion-input formControlName="city_th"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="lang!='th'">
+                <ion-label stacked>{{ 'CITY' | translate }}:</ion-label>
+                <ion-input formControlName="city_en"></ion-input>
+            </ion-item>
+            <!--<ion-item>-->
+            <!--<ion-label>{{ 'CERTIFICATE_DOC' | translate }}:</ion-label>-->
+            <!--<ion-input type="hidden" [(value)]="file_certificate" formControlName="file_certificate"></ion-input>-->
+            <!--</ion-item>-->
+
+            <ion-input type="hidden" [(value)]="profile_image" formControlName="profile_image"></ion-input>
+            <ion-input type="hidden" [(value)]="file_certificate" formControlName="file_certificate"></ion-input>
+            <ion-input type="hidden" [(value)]="image_card_no_path" formControlName="image_card_no_path"></ion-input>
+            <ion-input type="hidden" [(value)]="image_front_store_path" formControlName="image_front_store_path"></ion-input>
+            <ion-item>
+                <img width="80" [src]="sv.fnGetUrlFromGoogle(image_card_no_path)" />
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;"><i class="font-red">*</i>
+                        {{ 'CARD_ID_IMAGE' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderCardNo
+                            [uploadUrl]="urlUpload"
+                            uploadMethod="POST"
+                            [multiple]="false"
+                            accept="image/*"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="fnUploadCardNo($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{image_card_no_path?('CHANGE_IMAGE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+            <div *ngIf="formErrors.image_card_no_path" class="font-red">
+                {{ formErrors.image_card_no_path }}
+            </div>
+            <ion-item>
+                <p *ngFor="let img of image_front_store_path" style="float: left;border: 1px solid #ccc!important;">
+                    <img width="80" [src]="sv.fnBuildImg(img, 'path')"/>
+                </p>
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;"><i class="font-red">*</i>
+                        {{ 'FRONT_MARKET_IMAGE' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderFrontMarket
+                            [uploadUrl]="urlUploadFile"
+                            uploadMethod="POST"
+                            [multiple]="true"
+                            accept="image/*"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="uploadFileFrontStore($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{image_front_store_path.length?('SELECT_FILE_MORE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+            <div *ngIf="formErrors.image_front_store_path" class="font-red">
+                {{ formErrors.image_front_store_path }}
+            </div>
+            <ion-item>
+                <p *ngFor="let img of file_certificate" style="float: left;border: 1px solid #ccc!important;">
+                    <img width="80" [src]="sv.fnBuildImg(img, 'path')"/>
+                </p>
+                <div class="dx-field">
+                    <div class="dx-field-label" style="width: 100%;">{{ 'CERTIFICATE_DOC' | translate }}:</div>
+                    <dx-file-uploader
+                            #fileUploaderCertificateFile
+                            [uploadUrl]="urlUploadFile"
+                            uploadMethod="POST"
+                            [multiple]="true"
+                            accept="image/*, application/pdf, application/vnd.ms-excel"
+                            uploadMode="instantly"
+                            labelText=""
+                            (onUploadStarted)="fnDisableBtn($event)"
+                            (onUploaded)="uploadFileCertificate($event)"
+                            (onUploadedError)=uploadImgError($event)
+                            selectButtonText="{{file_certificate.length?('SELECT_FILE_MORE'|translate) :('SELECT_IMAGE'|translate)}}">
+                    </dx-file-uploader>
+                </div>
+            </ion-item>
+        </ion-list>
+        <button ion-button color="primary" block type="submit">{{ 'SAVE' | translate }}</button>
+        <!--<ion-row>-->
+        <!--<ion-col col-6>-->
+        <!--</ion-col>-->
+        <!--<ion-col col-6>-->
+        <!--<ion-buttons right>-->
+        <!--<button ion-button color="primary" type="submit" round>{{ 'SEND' | translate }}</button>-->
+        <!--</ion-buttons>-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+    </form>
+</ion-content>

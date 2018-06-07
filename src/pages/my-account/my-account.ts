@@ -11,16 +11,16 @@ import {ChangePasswordPage} from "../change-password/change-password";
  Ionic pages and navigation.
  */
 @Component({
-  selector: 'page-my-account',
-  templateUrl: 'my-account.html'
+    selector: 'page-my-account',
+    templateUrl: 'my-account.html'
 })
 export class MyAccountPage {
 
-  constructor(public nav: NavController, public userService: UserService) {
-  }
+    constructor(public nav: NavController, public userService: UserService) {
+    }
 
-  // go to changing password page
-  changePassword() {
-    this.nav.push(ChangePasswordPage);
-  }
+    // go to changing password page
+    changePassword() {
+        this.nav.push(ChangePasswordPage);
+    }
 }

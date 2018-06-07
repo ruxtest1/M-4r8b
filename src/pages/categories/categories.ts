@@ -28,7 +28,7 @@ export class CategoriesPage implements OnInit {
     lang = 'th';
 
     constructor(public navCtrl: NavController,
-                public navParams: NavParams,
+                // public navParams: NavParams,
                 public apiService: Service,
                 public shareService: SharedService,) {
     }

@@ -65,6 +65,11 @@ export class SharedService {
     private callback: any = null;
     private callbackShowLoading: any = null;
     private callbackHideLoading: any = null;
+    private callbackSetLogout: any = null;
+    private callbackSetLoginTrue: any = null;
+    private callbackSetLoginFalse: any = null;
+    private callbackSetUserData: any = null;
+    private callbackSetGoHome: any = null;
 
     public getCallback() {
         return this.callback;
@@ -88,6 +93,35 @@ export class SharedService {
 
     public setCallbackHideLoading(call) {
         this.callbackHideLoading = call;
+    }
+
+    public setCallbackSetLogout(call) {
+        this.callbackSetLogout = call;
+    }
+
+    public callLogout() {
+        return this.callbackSetLogout;
+    }
+
+    public setCallbackSetIsLoginTrue(call) {
+        this.callbackSetLoginTrue = call;
+    }
+    public callSetLoginTrue() {
+        return this.callbackSetLoginTrue;
+    }
+
+    public setCallbackSetUserData(call) {
+        this.callbackSetUserData = call;
+    }
+    public callSetUserData() {
+        return this.callbackSetUserData;
+    }
+
+    public setCallbackGoHome(call) {
+        this.callbackSetGoHome = call;
+    }
+    public callGoHome() {
+        return this.callbackSetGoHome;
     }
 
     // constructor(private http: Http) {

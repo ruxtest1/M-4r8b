@@ -67,6 +67,8 @@ import {BankPage} from "../pages/bank/bank";
 import {MapPage} from "../pages/map/map";
 import {MapDetailPage} from "../pages/map-detail/map-detail";
 import {VendorRegisterPage} from "../pages/vendor-register/vendor-register";
+import {ProfilePage} from "../pages/profile/profile";
+import {ProfileEditPage} from "../pages/profile-edit/profile-edit";
 // end import pages
 
 // The translate loader needs to know where to load i18n files
@@ -108,7 +110,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         MapPage,
         MapDetailPage,
         VendorRegisterPage,
-        BankPage
+        BankPage,
+        ProfilePage,
+        ProfileEditPage
     ],
     imports: [
         BrowserModule,
@@ -163,7 +167,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         MapPage,
         MapDetailPage,
         VendorRegisterPage,
-        BankPage
+        BankPage,
+        ProfilePage,
+        ProfileEditPage
     ],
     providers: [
         StatusBar,

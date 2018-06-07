@@ -48,7 +48,7 @@ export const DEFAULT = {
         },
         "userApi": {
             "login": "/api/Scusers/user-login",
-            "logout": "/api/users/logout",
+            "logout": "/api/Scusers/logout",
             "list": "/api/users/:account_id/list",
             "edit": "/api/users/",
             "create": "/api/users/:account_id/create",
@@ -111,7 +111,9 @@ export const DEFAULT = {
             'list': '/api/banks/find',
         },
         'vendor': {
+            'edit_password': '/api/vendors/:id/edit-password',
             'create': '/api/vendors/register',
+            'edit_profile': '/api/vendors/:id/edit-profile',
             'file': {
                 'upload': '/api/containers/vendor-files/upload',
                 'view': '/api/containers/vendor-files/download/:file_name',

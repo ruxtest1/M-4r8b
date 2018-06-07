@@ -51,7 +51,7 @@
                     <img src="assets/ico/user-login-icon.png" alt="">
                     <div text-center>{{ 'PROFILE' | translate }}</div>
                 </ion-col>
-                <ion-col col-3 (click)="fnGoVendorRegister()">
+                <ion-col *ngIf="!isVendor" col-3 (click)="fnGoVendorRegister()">
                     <img src="assets/ico/user-group.png" alt="">
                     <div text-center>{{ 'VENDOR_REGISTER' | translate }}</div>
                 </ion-col>
@@ -59,9 +59,13 @@
                     <img src="assets/ico/icon-contact-us.png" alt="">
                     <div text-center>{{ 'CONTACT_US' | translate }}</div>
                 </ion-col>
+                <ion-col *ngIf="isVendor" col-3 (click)="fnGoContactLine()">
+                    <img src="assets/ico/icon-line.png" alt="">
+                    <div text-center>{{ 'LINE_CHAT' | translate }}</div>
+                </ion-col>
             </ion-row>
             <ion-row *ngIf="showMenu">
-                <ion-col col-3 (click)="fnGoContactLine()">
+                <ion-col *ngIf="!isVendor" col-3 (click)="fnGoContactLine()">
                     <img src="assets/ico/icon-line.png" alt="">
                     <div text-center>{{ 'LINE_CHAT' | translate }}</div>
                 </ion-col>

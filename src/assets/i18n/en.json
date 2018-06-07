@@ -52,8 +52,11 @@
   "SETTINGS_OPTION3": "Option 3",
   "SETTINGS_OPTION4": "Option 4",
 
+  "MY_ACCOUNT": "My Account",
   "PROFILE": "Profile",
+  "PROFILE_IMAGE": "Image profile",
   "SETTINGS_PROFILE_BUTTON" : "Edit Profile",
+  "YOU_CAN_NOT_ACCESS": "Sorry, You can't access data.",
 
   "SETTINGS_PAGE_PROFILE": "Edit Profile",
 
@@ -63,6 +66,7 @@
   "LOGIN_TITLE": "Sign in",
   "LOGIN_ERROR": "Unable to sign in. Please check your account information and try again.",
   "LOGIN_BUTTON": "Sign in",
+  "LOGOUT_SUCCESS": "Logout success.",
   "SIGNUP_TITLE": "Sign up",
   "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
   "SIGNUP_BUTTON": "Sign up",
@@ -122,6 +126,14 @@
   "EMAIL_IS_INVALID": "Email is invalid.",
   "PLEASE_ADD_PASSWORD": "Please add password.",
   "VIP_PROFILE": "VIP Profile",
+  "CHANGE_PASSWORD": "Change Password",
+  "OLD_PASSWORD": "Old Password",
+  "NEW_PASSWORD": "New Password",
+  "SAVE": "Save",
+  "OLD_PASSWORD_INVALID": "Old password invalid.",
+  "OLD_PASSWORD_REQUIRE": "Old password is required.",
+  "NEW_PASSWORD_REQUIRE": "New password is required.",
+  "PASSWORD_3_CHARACTER": "Password must be at least 3 characters long.",
   "LOADING_DATA": "Loading",
   "DATA_NOT_FOUND": "Data is not found.",
   "PRICE": "Price",
@@ -168,5 +180,6 @@
   "SAVE_DATA_FAIL": "Save data fail.",
   "SAVE_DATA_SUCCESS": "Save data success.",
   "RESET_PASSWORD": "Reset Password",
-  "AUTHORIZATION_REQUIRED": "Authorization required."
+  "AUTHORIZATION_REQUIRED": "Authorization required.",
+  "YOU_SESSION_EXPIRE": "Your session expired, Please login again."
 }

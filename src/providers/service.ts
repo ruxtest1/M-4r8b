@@ -7,20 +7,19 @@ import notify from 'devextreme/ui/notify';
 import * as moment from 'moment';
 import * as $ from 'jquery';
 import {Storage} from '@ionic/storage';
-import {AlertController, ToastController} from 'ionic-angular';
+import {AlertController, App, ToastController} from 'ionic-angular';
 import {Clipboard} from '@ionic-native/clipboard';
 import {TranslateService} from '@ngx-translate/core';
+import * as CryptoJS from 'crypto-js';
+import {SharedService} from "./shared.service";
+import swal from 'sweetalert2';
+import {HomePage} from "../pages/home/home";
 
 // import {App} from "ionic-angular/index";
 // import {CryptoJS} from "crypto-js";
-import * as CryptoJS from 'crypto-js';
-import {SharedService} from "./shared.service";
 // import {CryptoJS} from '../../node_modules/crypto-js';
 // import {LoginPage} from '../pages/login/login';
-
 // import {globAll} from "@ionic/app-scripts/dist/util/glob-util";
-import swal from 'sweetalert2';
-
 /*
  Generated class for the AppProvider provider.
 
@@ -47,6 +46,7 @@ export class Service {
 
     constructor(public http: Http,
                 private storage: Storage,
+                public _app: App,
                 private alertCtrl: AlertController,
                 private toastCtrl: ToastController,
                 // public loadingCtrl: LoadingController,
@@ -78,12 +78,15 @@ export class Service {
         // }
         // return Promise.reject(error.message || error);
 
+        console.log(error)
         try {
             const errJ = error.json();
+            console.log(errJ)
             if (errJ.error.code === 'AUTHORIZATION_REQUIRED') {
-                // this.logoutUser();
-                // this.router.navigate(['/login']);
-                this.showErrorTranslate('AUTHORIZATION_REQUIRED');
+                console.log('AUTHORIZATION_REQUIRED')
+                this.showErrorTranslate('YOU_SESSION_EXPIRE');
+                this.logoutUser();
+                // this.showErrorTranslate('AUTHORIZATION_REQUIRED');
                 return Promise.reject(error.message || error);
             } else {
             }
@@ -104,6 +107,16 @@ export class Service {
             }
         }
         return Promise.reject(error);
+    }
+
+    async logoutUser() {
+        await this.fnLogout();
+        this.sharedService.callSetUserData()();
+        this.sharedService.callGoHome()();
+        // let nav = this._app.getRootNavs();
+        // nav.setRoot(HomePage);
+        // this._app.getRootNav()
+        // .setRoot(HomePage);
     }
 
     async fnConfirmDelete(fnCall, msg?) {
@@ -266,20 +279,14 @@ export class Service {
             (this.checkData(objQuery) ? '?' + $.param(objQuery) : '');
     }
 
-    fnGetPathImgThumb (path:any) {
+    fnGetPathImgThumb(path: any) {
         const parts = path.split('.'),
             extension = parts[parts.length - 1];
         const origName = parts[parts.length - 2];
         return origName + '-thumbnail.' + extension;
     };
 
-    fnBuildImg(data: object, name: string, full?:any) {
-        let path = data[name];
-        // if (this.checkData(data[name + '_thumbnail'])) {
-        //     path = data[name + '_thumbnail'];
-        // }
-        // return this.fnBuildImgUrl(path);
-
+    fnGetUrlFromGoogle(path, full?: any) {
         if (path) {
             const gUrl = 'https://storage.googleapis.com/marukyo-api/';
             let url = path.replace(gUrl, '');
@@ -290,6 +297,15 @@ export class Service {
         } else {
             return 'assets/img/icon-no-image.png';
         }
+    }
+
+    fnBuildImg(data: object, name: string, full?: any) {
+        let path = data[name];
+        // if (this.checkData(data[name + '_thumbnail'])) {
+        //     path = data[name + '_thumbnail'];
+        // }
+        // return this.fnBuildImgUrl(path);
+        return this.fnGetUrlFromGoogle(path, full);
     }
 
     fnBuildImgUrl(path) {
@@ -383,12 +399,8 @@ export class Service {
     }
 
     async put(url: string, data: any) {
-        const config = DEFAULT.config;
-        const userData = await this.getUserData();
-        const access_token = '?access_token=' + userData.id;//'?access_token=zfXQFlQ6EYlgJulTzcvXNGrQwcsNduZefvWGNmfp7YnMcOqrs3n073MfNC3nUfrO';
-        // data.account_id = userData.user.account_id; // TODO: แก้ให้ดึงจาก Cookie
+        url = await this.fnGetUrlAPI(url);
         const strData = JSON.stringify(data);
-        url = config.protocol + config.host + ':' + config.port + url + access_token;
         url = url.replace(':id', data.id);
         // url = url.replace(':account_id', userData.user.account_id);
         console.log('PUT ' + url);
@@ -398,10 +410,13 @@ export class Service {
         return this.http.put(url, strData, {headers: this.headers})
             .toPromise()
             .then(response => {
+                app.closeLoading();
                 console.log(response);
-                return app.fnCheckResponse(response.json(), 'edit');
+                const res = response.json();
+                return app.fnCheckResponse(res);
             })
             .catch(function (err) {
+                app.closeLoading();
                 return app.handleError(err, app);
             });
     }
@@ -475,7 +490,7 @@ export class Service {
             switch (resultCode) {
                 case '20000':
                     if (type === 'add' || type === 'edit' || type === 'delete') {
-                        this.presentToast();
+                        //this.presentToast();
                     }
                     return data.data;
                 default:
@@ -533,6 +548,11 @@ export class Service {
         await this.storage.remove(key);
     }
 
+    async setUserData(data:any) {
+        await this.setStorage(this.userDataKey, data);
+        return data;
+    }
+
     async getUserData() {
         // let userData = localStorage.getItem(this.userDataKey);
         try {
@@ -559,7 +579,7 @@ export class Service {
     }
 
     async fnLogout() {
-       await this.deleteStorage(this.userDataKey);
+        await this.deleteStorage(this.userDataKey);
     }
 
     async fnGoLogin() {
@@ -572,6 +592,22 @@ export class Service {
         if (this.checkData(userData)) {
             return userData.user.account_id;
         } else {
+            return null;
+        }
+    };
+
+    fnStr2Json(str: any) {
+        try {
+            return JSON.parse(str);
+        } catch (err) {
+            return null;
+        }
+    };
+
+    fnJson2Str(json: any) {
+        try {
+            return JSON.stringify(json);
+        } catch (err) {
             return null;
         }
     };
@@ -693,16 +729,18 @@ export class Service {
     async fnAddSearchHistory(data: any) {
         let lists = await this.getStorage(this.searchHistoryKey);
         lists = lists ? lists : [];
-        lists = lists.filter(val=>val!=data);
+        lists = lists.filter(val => val != data);
         lists.unshift(data);
         await this.setStorage(this.searchHistoryKey, lists);
         return lists;
     }
+
     async fnGetSearchHistory() {
         let lists = await this.getStorage(this.searchHistoryKey);
         lists = lists ? lists : [];
         return lists;
     }
+
     async fnRemoveSearchHistory(idx: any) {
         const lists = await this.getStorage(this.searchHistoryKey);
         let newList = [];
@@ -718,6 +756,7 @@ export class Service {
         await this.setStorage(this.searchHistoryKey, newList);
         return newList;
     }
+
     async fnRemoveAllSearch() {
         await this.setStorage(this.searchHistoryKey, []);
         return [];
@@ -791,10 +830,10 @@ export class Service {
     }
 
     fnGetImgUrl(e: any, path: string) {
-         const res = JSON.parse(e.request.response).result.files['files[]'];
+        const res = JSON.parse(e.request.response).result.files['files[]'];
         const newFileName = res[0].name || '';
         return {
-            url: newFileName ? path.replace(':file_name', newFileName): '',
+            url: newFileName ? path.replace(':file_name', newFileName) : '',
             name: newFileName
         };
     }

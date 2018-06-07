@@ -6,6 +6,7 @@ import {ForgotPasswordPage} from "../forgot-password/forgot-password";
 import {VendorRegisterPage} from "../vendor-register/vendor-register";
 import {Service} from "../../providers/service";
 import {DEFAULT} from "../../app/app.constant";
+import {SharedService} from "../../providers/shared.service";
 
 /*
  Generated class for the LoginPage page.
@@ -28,7 +29,8 @@ export class LoginPage {
     password:any= '';
 
     constructor(public nav: NavController,
-                public apiService: Service
+                public apiService: Service,
+                public shareService: SharedService
     ) {
     }
 
@@ -63,19 +65,19 @@ export class LoginPage {
             console.log(res);
             if (res.data.is_vendor) {//ถ้าเป็น vendor
                 res.data.access_token = res.data.id;
-                await this.apiService.setStorage(this.apiService.userDataKey, res.data);
+                await this.apiService.setUserData(res.data);
 
                 // let str = await this.apiService.getStorage(this.apiService.userDataKey);
                 // console.log('getStorage:', str)
                 // localStorage.setItem('userData', JSON.stringify(res.data));
-
-                this.apiService.showSuccessTranslate('WELCOME_USER_VENDOR');
-                // this.nav.setRoot(HomePage);
+                await this.apiService.showSuccessTranslate('WELCOME_USER_VENDOR');
+                await this.shareService.callSetUserData()();
+                this.nav.setRoot(HomePage);
             } else {
                 this.apiService.showErrorTranslate('USER_IS_NOT_VENDOR');
             }
         } catch (err) {
-
+            console.error(err);
         }
         // }
     }

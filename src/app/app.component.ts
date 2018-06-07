@@ -22,6 +22,7 @@ import {LoginPage} from "../pages/login/login";
 import {VendorRegisterPage} from "../pages/vendor-register/vendor-register";
 import {ContactUsPage} from "../pages/contact-us/contact-us";
 import {DEFAULT} from "./app.constant";
+import {ProfilePage} from "../pages/profile/profile";
 // import {WishListPage} from '../pages/wish-list/wish-list';
 // import {MyOrderPage} from '../pages/my-order/my-order';
 
@@ -41,8 +42,8 @@ export class MyApp {
 
     public pages = [];
     public counter = 0;
-    isLogin = false;
-    userData = {
+    public isLogin = false;
+    userData: any = {
         user: {
             name_th: '',
             name_en: '',
@@ -53,18 +54,22 @@ export class MyApp {
                 public platform: Platform,
                 public statusBar: StatusBar,
                 private config: Config,
-                public apiService: Service,
+                public sv: Service,
                 public splashScreen: SplashScreen,
-                public service: SharedService,
+                public shs: SharedService,
                 public toastCtrl: ToastController,
                 public screenOrientation: ScreenOrientation) {
 
-        this.service.setCallbackShowLoading(this.fnShowLoading.bind(this));
-        this.service.setCallbackHideLoading(this.fnHideLoading.bind(this));
+        this.shs.setCallbackShowLoading(this.fnShowLoading.bind(this));
+        this.shs.setCallbackHideLoading(this.fnHideLoading.bind(this));
+        this.shs.setCallbackSetLogout(this.goLogout.bind(this));
+        this.shs.setCallbackSetIsLoginTrue(this.fnSetLoginTrue.bind(this));
+        this.shs.setCallbackSetUserData(this.fnSetUserData.bind(this));
+        this.shs.setCallbackGoHome(this.goHome.bind(this));
 
         this.initializeApp();
         this.initTranslate();
-        this.fnInitMenu();
+        // this.fnInitMenu();
         this.fnCheckRootPage();
     }
 
@@ -122,7 +127,7 @@ export class MyApp {
                 count: 0,
                 component: SettingsPage,
                 set_root: false,
-                msg: this.service.lang === 'th' ? "TH" : "EN"
+                msg: this.shs.lang === 'th' ? "TH" : "EN"
             },
 
             // {
@@ -146,33 +151,23 @@ export class MyApp {
             } else {// run on web
 
             }
-            // this.platform.registerBackButtonAction(() => {
-            //     if (this.counter == 0) {
-            //         this.counter++;
-            //         this.presentToast();
-            //         setTimeout(() => {
-            //             this.counter = 0
-            //         }, 3000)
-            //     } else {
-            //         // console.log("exitapp");
-            //         this.platform.exitApp();
-            //     }
-            // }, 0)
         });
 
-        this.service.userData = await this.apiService.getUserData();
-        this.service.isLogin = await this.apiService.isLogin();
+        await this.fnSetUserData();
+
+        console.log(this.userData)
+        console.log(this.isLogin)
     }
 
     async initTranslate() {
-        let curLang = await this.apiService.getStorage(this.apiService.langKey) || 'th';
+        let curLang = await this.sv.getStorage(this.sv.langKey) || 'th';
         // let curLang = 'th';
-        this.service.lang = curLang;
+        this.shs.lang = curLang;
         // Set the default language for translation strings, and the current language.
         // this.translate.setDefaultLang('en');
 
         this.translate.use(curLang);
-        await this.apiService.setStorage(this.apiService.langKey, curLang);
+        await this.sv.setStorage(this.sv.langKey, curLang);
 
         // if (this.translate.getBrowserLang() !== undefined) {
         //   // this.translate.use(this.translate.getBrowserLang());
@@ -200,6 +195,27 @@ export class MyApp {
         }
     }
 
+    menuOpened() {
+        console.log('open menu')
+        setTimeout(()=>{
+            this.fnSetUserData();
+        }, 200);
+    }
+
+    public fnSetLoginTrue() {
+        this.isLogin = true;
+    }
+
+    public async fnSetUserData() {
+        this.userData = await this.sv.getUserData();
+        this.shs.userData = this.userData;
+        if (this.sv.checkData(this.userData)) {
+            this.isLogin = true;
+        } else {
+            this.isLogin = false;
+        }
+    }
+
     public fnShowLoading() {
         this.loadingVisible = true;
     }
@@ -208,7 +224,7 @@ export class MyApp {
         this.loadingVisible = false;
     }
 
-    goHome() {
+    public goHome() {
         this.nav.setRoot(HomePage);
     }
 
@@ -221,7 +237,7 @@ export class MyApp {
     }
 
     goProfile() {
-        this.nav.push(LoginPage);
+        this.nav.push(ProfilePage);
     }
 
     goVendorRegister() {
@@ -238,26 +254,39 @@ export class MyApp {
 
     async goLogout() {
         const t = this;
+        const fnClearData = async () => {
+            this.userData = {
+                user: {
+                    name_th: '',
+                    name_en: '',
+                },
+                vendor: {
+                    name_th: '',
+                    name_en: '',
+                },
+            };
+            this.isLogin = false;
+            this.nav.setRoot(HomePage);
+        };
+
         const fnConfirm = () => {
-            t.apiService.post(t.api.userApi.logout, {})
+            t.sv.post(t.api.userApi.logout, {})
                 .then(async (response) => {
-                    await t.apiService.fnLogout();
-                    t.nav.setRoot(HomePage);
+                    await t.sv.fnLogout();
+                    t.sv.showSuccessTranslate('LOGOUT_SUCCESS');
+                    await fnClearData();
                 }, async (err) => { // when failed
-                    await t.apiService.fnLogout();
-                    t.nav.setRoot(HomePage);
+                    await t.sv.fnLogout();
+                    await fnClearData();
                 });
         };
-        const title = await this.apiService.fnGetTranslate('CONFIRM_LOGOUT');
-        const text = await this.apiService.fnGetTranslate('DO_YOU_WANT_TO_LOGOUT_APP');
-        await this.apiService.fnConfirm(fnConfirm, title, text);
-
-        this.isLogin = await this.apiService.isLogin();
-        this.userData = await this.apiService.getUserData();
+        const title = await this.sv.fnGetTranslate('CONFIRM_LOGOUT');
+        const text = await this.sv.fnGetTranslate('DO_YOU_WANT_TO_LOGOUT_APP');
+        await this.sv.fnConfirm(fnConfirm, title, text);
     }
 
     // presentToast() {
-    //     this.apiService.fnGetTranslate('CONFIRM_TO_EXIT').then((msg:any)=>{
+    //     this.sv.fnGetTranslate('CONFIRM_TO_EXIT').then((msg:any)=>{
     //         let toast = this.toastCtrl.create({
     //             message: msg,
     //             duration: 3000,
