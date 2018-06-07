@@ -69,6 +69,7 @@ import {MapDetailPage} from "../pages/map-detail/map-detail";
 import {VendorRegisterPage} from "../pages/vendor-register/vendor-register";
 import {ProfilePage} from "../pages/profile/profile";
 import {ProfileEditPage} from "../pages/profile-edit/profile-edit";
+import {HideHeaderDirective} from "../directives/hide-header";
 // end import pages
 
 // The translate loader needs to know where to load i18n files
@@ -80,6 +81,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     declarations: [
         MyApp,
+        HideHeaderDirective,
         CartPage,
         CategoriesPage,
         CategoryPage,

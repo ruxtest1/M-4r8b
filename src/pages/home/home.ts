@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
     public items: any;
 
     public list_product;
-    public temp_list_product;
+    public temp_list_product: any = [];
     public countProduct = 1;
     timeSearch = null;
     scrollAmount = 0;
@@ -135,7 +135,7 @@ export class HomePage implements OnInit {
         } else if (this.countProduct) {
             this.isProductNotFound = false;
             setTimeout(async()=> {
-                t.temp_list_product = await t.fnGetList(t.page+1, t.limit);
+                t.temp_list_product[t.page+1] = await t.fnGetList(t.page+1, t.limit);
             }, 500)
         }
         this.hideMsg = false;
@@ -187,24 +187,24 @@ export class HomePage implements OnInit {
     }
 
     async doInfinite(infiniteScroll) {
-        if (!this.isMax && !this.isGetList) {
+        // if (!this.isMax && !this.isGetList) {
+        if (!this.isMax) {
             this.isGetList = true;
             this.page++;
-            let newItems = this.temp_list_product;
-            if (newItems != false) {
+            let newItems = this.temp_list_product[this.page];
+            if (this.sv.checkData(newItems)) {
                 this.isMax = +newItems.rows.length < +this.limit ? true : false;
                 // this.isProductNotFound = newItems.totalCount > 0 ? false : true;
-                for (let i in newItems.rows) {
-                    this.list_product.push(newItems.rows[i]);
+                for (let rowI of newItems.rows) {
+                    this.list_product.push(rowI);
                 }
             }
             this.countProduct = this.list_product.length;
-
-            infiniteScroll.complete();
-            this.isGetList = false;
             if (!this.isMax) {
-                this.temp_list_product = await this.fnGetList(this.page + 1, this.limit);
+                this.temp_list_product[this.page + 1] = await this.fnGetList(this.page + 1, this.limit);
             }
+            this.isGetList = false;
+            infiniteScroll.complete();
         } else {
             infiniteScroll.complete();
         }
